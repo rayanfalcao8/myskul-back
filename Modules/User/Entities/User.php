@@ -7,17 +7,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-// use Laravel\Passport\HasApiTokens; // Uncomment this line if you are going to use Passport instead of Sanctum
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
+use Modules\User\Traits\HasProfilePhoto;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements MustVerifyEmail, HasMedia
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens,
         HasFactory,
         HasRoles,
-        InteractsWithMedia,
+        HasProfilePhoto,
         Notifiable;
 
     /**

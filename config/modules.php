@@ -26,7 +26,7 @@ return [
     */
 
     'stubs' => [
-        'enabled' => true,
+        'enabled' => false,
         'path' => base_path('stubs/nwidart-stubs/'),
         'files' => [
             'routes/web' => 'Routes/web.php',
@@ -35,10 +35,15 @@ return [
             'views/master' => 'Resources/views/layouts/master.blade.php',
             'scaffold/config' => 'Config/config.php',
             'composer' => 'composer.json',
+            'assets/js/app' => 'Resources/assets/js/app.js',
+            'assets/sass/app' => 'Resources/assets/sass/app.scss',
+            'vite' => 'vite.config.js',
+            'package' => 'package.json',
         ],
         'replacements' => [
             'routes/web' => ['LOWER_NAME', 'STUDLY_NAME'],
             'routes/api' => ['LOWER_NAME'],
+            'vite' => ['LOWER_NAME'],
             'json' => ['LOWER_NAME', 'STUDLY_NAME', 'MODULE_NAMESPACE', 'PROVIDER_NAMESPACE'],
             'views/index' => ['LOWER_NAME'],
             'views/master' => ['LOWER_NAME', 'STUDLY_NAME'],
@@ -103,14 +108,13 @@ return [
             'factory' => ['path' => 'Database/factories', 'generate' => true],
             'model' => ['path' => 'Entities', 'generate' => true],
             'routes' => ['path' => 'Routes', 'generate' => true],
-            'controller' => ['path' => 'Http/Controllers', 'generate' => true],
-            'filter' => ['path' => 'Http/Middleware', 'generate' => true],
-            'filters' => ['path' => 'Filters', 'generate' => true],
+            'controller' => ['path' => 'Http/Controllers/Api', 'generate' => true],
+            'filter' => ['path' => 'Filters', 'generate' => true],
             'request' => ['path' => 'Http/Requests', 'generate' => true],
             'provider' => ['path' => 'Providers', 'generate' => true],
-            'assets' => ['path' => 'Resources/assets', 'generate' => false],
-            'lang' => ['path' => 'Resources/lang', 'generate' => false],
-            'views' => ['path' => 'Resources/views', 'generate' => false],
+            'assets' => ['path' => 'Resources/assets', 'generate' => true],
+            'lang' => ['path' => 'Resources/lang', 'generate' => true],
+            'views' => ['path' => 'Resources/views', 'generate' => true],
             'test' => ['path' => 'Tests/Unit', 'generate' => true],
             'test-feature' => ['path' => 'Tests/Feature', 'generate' => true],
             'repository' => ['path' => 'Repositories', 'generate' => false],
@@ -121,7 +125,7 @@ return [
             'jobs' => ['path' => 'Jobs', 'generate' => false],
             'emails' => ['path' => 'Emails', 'generate' => false],
             'notifications' => ['path' => 'Notifications', 'generate' => false],
-            'resource' => ['path' => 'Transformers', 'generate' => true],
+            'resource' => ['path' => 'Transformers', 'generate' => false],
             'component-view' => ['path' => 'Resources/views/components', 'generate' => false],
             'component-class' => ['path' => 'View/Components', 'generate' => false],
         ],
@@ -162,6 +166,7 @@ return [
         Commands\RequestMakeCommand::class,
         Commands\RuleMakeCommand::class,
         Commands\MigrateCommand::class,
+        Commands\MigrateFreshCommand::class,
         Commands\MigrateRefreshCommand::class,
         Commands\MigrateResetCommand::class,
         Commands\MigrateRollbackCommand::class,
@@ -209,10 +214,10 @@ return [
     */
 
     'composer' => [
-        'vendor' => 'isdg',
+        'vendor' => 'myskul',
         'author' => [
-            'name' => 'Isdg Developer',
-            'email' => 'dev@isdg-sarl.com',
+            'name' => 'Rayan TSOLEFACK',
+            'email' => 'rayanfalcao8@gmail.com',
         ],
         'composer-output' => false,
     ],
@@ -227,6 +232,7 @@ return [
     */
     'cache' => [
         'enabled' => false,
+        'driver' => 'file',
         'key' => 'laravel-modules',
         'lifetime' => 60,
     ],
@@ -239,7 +245,7 @@ return [
     */
     'register' => [
         'translations' => true,
-        /*
+        /**
          * load files on boot or register method
          *
          * Note: boot not compatible with asgardcms

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 
 class CreateAdminCommand extends Command
 {
-    protected $name = 'isdg:user:admin';
+    protected $name = 'myskul:user:admin';
 
     protected $description = 'Create user with admin role and all permissions.';
 
@@ -21,7 +21,7 @@ class CreateAdminCommand extends Command
 
     protected function createUser(): void
     {
-        $email = $this->ask('Email Address', 'admin@admin.com');
+        $email = $this->ask('Email Address', 'admin1@admin.com');
         $name = $this->ask('Name', 'Super Admin');
         $password = $this->secret('Password');
         $confirmPassword = $this->secret('Confirm Password');
@@ -46,7 +46,7 @@ class CreateAdminCommand extends Command
         try {
             $user = tap((new $model)->forceFill($userData))->save();
 
-            $user->assignRole(config('modules.authorization.admin_role'));
+            $user->assignRole('admin');
         } catch (\Exception | QueryException $e) {
             $this->error($e->getMessage());
         }
