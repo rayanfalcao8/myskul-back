@@ -1,7 +1,7 @@
 deploy:
 	ssh o2switch 'cd ~/api.digihealthsarl.com && git pull origin main && make install'
 
-install: vendor/autoload.php .env public/storage public/build/manifest.json
+install: vendor/autoload.php .env public/storage
 	php artisan cache:clear
 	php artisan migrate
 
