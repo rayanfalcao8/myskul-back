@@ -2,8 +2,14 @@
 
 use Dingo\Api\Routing\Router;
 use Modules\Authentication\Http\Controllers\Api;
+use Modules\Authentication\Http\Controllers\Api\ForgotPasswordController;
 use Modules\Authentication\Http\Controllers\Api\Passport;
+use Modules\Authentication\Http\Controllers\Api\ResetPasswordController;
 use Modules\Authentication\Http\Controllers\Api\Sanctum;
+use Modules\Authentication\Http\Controllers\Api\Sanctum\AuthenticateController;
+use Modules\Authentication\Http\Controllers\Api\Sanctum\RegisterController;
+use Modules\Authentication\Http\Controllers\Api\VerifyEmailController;
+use Modules\User\Http\Controllers\Api\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,31 +24,20 @@ use Modules\Authentication\Http\Controllers\Api\Sanctum;
 
 $api = app('Dingo\Api\Routing\Router');
 
-if (config('modules.core.api_connection') === 'sanctum') {
-    $api->version('v1', function (Router $api) {
-        $api->post('/login', [Sanctum\AuthenticateController::class, 'login']);
-        $api->post('/register', [Sanctum\RegisterController::class, 'register']);
-
-        /* Authenticated Routes */
-        $api->group(['middleware' => 'auth:sanctum'], function (Router $api) {
-            $api->post('logout', [Sanctum\AuthenticateController::class, 'logout']);
-        });
-    });
-}
-
-if (config('modules.core.api_connection') === 'passport') {
-    $api->version('v1', function (Router $api) {
-        $api->post('/login', [Passport\AuthenticateController::class, 'authenticate']);
-        $api->post('/register', [Passport\RegistrationController::class, 'register']);
-
-        /* Authenticated Routes */
-        $api->group(['middleware' => 'auth:api'], function (Router $api) {
-            $api->post('logout', [Passport\AuthenticateController::class, 'logout']);
-        });
-    });
-}
 
 $api->version('v1', function (Router $api) {
-    $api->post('/forgot-password', [Api\ForgotPasswordController::class, 'forgot']);
-    $api->post('/reset-password', [Api\ResetPasswordController::class, 'reset']);
+    $api->post('/login', [AuthenticateController::class, 'login']);
+    $api->post('/send-otp', [AuthenticateController::class, 'otpSend']);
+    $api->post('/verify-otp', [AuthenticateController::class, 'otpVerify']);
+    $api->post('/register', [RegisterController::class, 'register']);
+
+    $api->post('/user/exists', [UserController::class, 'exists']);
+    $api->post('/forgot-password', [ForgotPasswordController::class, 'forgot']);
+    $api->post('/reset-password', [ResetPasswordController::class, 'reset']);
+    $api->post('/resend-email/{id}', [VerifyEmailController::class, 'resendEmail']);
+
+    /* Authenticated Routes */
+    $api->group(['middleware' => 'auth:sanctum'], function (Router $api) {
+        $api->post('logout', [AuthenticateController::class, 'logout']);
+    });
 });

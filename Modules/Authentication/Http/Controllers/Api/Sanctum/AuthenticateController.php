@@ -4,22 +4,41 @@ namespace Modules\Authentication\Http\Controllers\Api\Sanctum;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Modules\Authentication\Actions\Authenticate;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 use Modules\Authentication\Http\Requests\Api\LoginRequest;
 use Modules\Authentication\Transformers\AuthenticateUserResource as UserResource;
 use Modules\Core\Http\Controllers\Api\CoreController;
+use Modules\User\Entities\User;
 
 class AuthenticateController extends CoreController
 {
     public function login(LoginRequest $request)
     {
-        $user = Authenticate::run($request);
+        $user = User::where('email', strtolower($request->input('email')))->first();
 
-        if (! empty($user->tokens())) {
-            $user->tokens()->delete();
+//        if (! empty($user->tokens())) {
+//            $user->tokens()->delete();
+//        }
+
+        $sanitized = [
+            'email' => strtolower($request->input('email')),
+            'password' => $request->input('password'),
+        ];
+
+        if (empty($user) || !Auth::attempt($sanitized)) {
+            throw ValidationException::withMessages([
+                'email' => __('Invalid email address or password.'),
+            ]);
+        }
+
+        // check account status
+        if ($user?->status === false) {
+            return $this->errorResponse(__('Attempting to login to an inactive user'), []);
         }
 
         $user->last_login_at = Carbon::now();
+        $user->last_login_ip = $request->ip();
         $user->save();
 
         $token = $user->createToken($request->input('email'))->plainTextToken;

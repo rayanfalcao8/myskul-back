@@ -23,7 +23,23 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var string[]|bool
      */
-    protected $guarded = [];
+    protected $fillable = [
+        'first_name',
+        'last_name',
+        'gender',
+        'email',
+        'password',
+        'birthdate',
+        'phone_number',
+        'timezone',
+        'language',
+        'last_login_ip',
+        'last_login_at',
+        'status',
+        'address',
+        'profile_photo_url',
+        'otp_code',
+    ];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -42,12 +58,15 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'phone_number_verified_at' => 'datetime',
         'last_login_at' => 'datetime',
+        'can_login' => 'boolean',
+        'status' => 'boolean',
     ];
 
     public function isAdmin(): bool
     {
-        return $this->hasRole(config('modules.authorization.admin_role'));
+        return $this->hasRole('admin');
     }
 
     public function isManager(): bool
@@ -57,7 +76,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function isCustomer(): bool
     {
-        return $this->hasRole(config('modules.authorization.default_role'));
+        return $this->hasRole('customer');
     }
 
     public function registerMediaCollections(): void
@@ -67,5 +86,25 @@ class User extends Authenticatable implements MustVerifyEmail
             ->acceptsFile(function (string $mimeType): bool {
                 return in_array($mimeType, ['image/jpeg', 'image/png', 'image/jpg'], true);
             });
+    }
+
+    public function userRoles(): array
+    {
+        $roles = array();
+        foreach ($this->roles as $role) {
+            $roles[] = $role->name;
+        }
+        return $roles;
+    }
+
+    public function userPermissions(): array
+    {
+        $permissions = array();
+        foreach ($this->roles as $role) {
+            foreach ($role->permissions as $permission) {
+                $permissions[] = $permission->name;
+            }
+        }
+        return $permissions;
     }
 }

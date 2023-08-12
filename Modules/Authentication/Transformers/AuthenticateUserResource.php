@@ -16,20 +16,25 @@ class AuthenticateUserResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name'  => $this->name,
+            'first_name'  => $this->first_name,
+            'last_name'  => $this->last_name,
             'email' => $this->email,
-            'phone_number' => $this->phoneNumber,
-            'account_type' => $this->account_type,
-            'timezone' => $this->timezone,
+            'gender' => $this->gender,
+            'phone_number' => $this->phone_number,
+            'birthdate' => $this->birthdate,
             'email_verified_at' => $this->email_verified_at,
-            'roles' => $this->roles,
-            'permissions' => $this->roles()
-                ->with('permissions')
-                ->get()
-                ->pluck('permissions')
-                ->collapse(),
+            'phone_number_verified_at' => $this->phone_number_verified_at,
+            'can_login' => $this->can_login,
+            'parent_id' => $this->parent_id,
+            'timezone' => $this->timezone,
+            'language' => $this->language,
+            'status' => $this->status,
+            'address' => $this->address,
+            'roles' => $this->userRoles(),
+            'permissions' => $this->userPermissions(),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'profile_image' => $this->profile_photo_url,
         ];
     }
 }

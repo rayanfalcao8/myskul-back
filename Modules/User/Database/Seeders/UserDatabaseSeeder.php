@@ -18,7 +18,8 @@ class UserDatabaseSeeder extends Seeder
 
         $user = tap((new $model)->forceFill([
             'email' => 'admin@admin.com',
-            'name' => 'Admin Manager',
+            'first_name' => 'Manager',
+            'last_name' => 'Admin',
             'password' => Hash::make('password'),
             'email_verified_at' => now()->toDateTimeString(),
             'last_login_at' => now()->toDateTimeString(),
