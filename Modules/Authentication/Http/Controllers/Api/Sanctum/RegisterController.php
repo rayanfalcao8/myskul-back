@@ -30,5 +30,10 @@ class RegisterController extends CoreController
         $user->assignRole('customer');
 
         Mail::send(new VerifyEmailMail($user));
+
+        return $this->successResponse(
+            __('Your user account has been successfully created. A verification email has been sent to you.'),
+            []
+        );
     }
 }

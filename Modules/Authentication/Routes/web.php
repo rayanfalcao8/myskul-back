@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Modules\Authentication\Http\Controllers\Api\VerifyEmailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('verify-email/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
-    ->middleware(['signed', 'throttle:6,1'])
+Route::get('verify-email/{id}', [VerifyEmailController::class, '__invoke'])
+//    ->middleware(['signed', 'throttle:6,1'])
     ->name('verification.verify');
