@@ -15,6 +15,7 @@ class AuthenticationServiceProvider extends ServiceProvider
     {
         $this->registerTranslations();
         $this->registerConfig();
+        $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
 
         if (! $this->app->routesAreCached() && config('modules.core.api_connection') === 'passport') {
