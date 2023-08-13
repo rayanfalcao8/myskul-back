@@ -23,6 +23,7 @@ class RegisterController extends CoreController
             'password' => Hash::make($request->password),
             'gender' => $request->gender,
             'birthdate' => $request->birthdate,
+            'address' => $request->address,
             'phone_number' => str_replace(" ", "", $request->phone_number),
         ]);
 
