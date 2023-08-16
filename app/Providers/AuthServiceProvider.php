@@ -27,12 +27,12 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        ResetPassword::createUrlUsing(function ($user, string $token) {
-            return config('modules.core.spa_url') . '/reset-password?token=' . $token;
-        });
-
-        Gate::before(function (User $user) {
-            return $user->isAdmin() ? true : null;
-        });
+//        ResetPassword::createUrlUsing(function ($user, string $token) {
+//            return config('modules.core.spa_url') . '/reset-password?token=' . $token;
+//        });
+//
+//        Gate::before(function (User $user) {
+//            return $user->isAdmin() ? true : null;
+//        });
     }
 }

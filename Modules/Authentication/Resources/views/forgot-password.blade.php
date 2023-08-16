@@ -125,46 +125,46 @@
                     <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
                         <p style="margin: 0;">Cher {{ $user->first_name }} {{ $user->last_name  }}, <b>MySkul</b> vous informe qu'une demande de reinitialisation de mot de passe a été initié pour votre compte.</p>
                         <br>
-                        <p style="margin: 0;">Cliquez sur le bouton ci-dessous pour proceder a la reinitialisation, sinon, ignorez simplement ce message, ou supprimmez le!</p>
+{{--                        <p style="margin: 0;">Cliquez sur le bouton ci-dessous pour proceder a la reinitialisation, sinon, ignorez simplement ce message, ou supprimmez le!</p>--}}
                     </td>
                 </tr>
                 <!-- end copy -->
 
                 <!-- start button -->
-                <tr>
-                    <td align="left" bgcolor="#ffffff">
-                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                            <tr>
-                                <td align="center" bgcolor="#ffffff" style="padding: 12px;">
-                                    <table border="0" cellpadding="0" cellspacing="0">
-                                        <tr>
-                                            <td align="center" bgcolor="#50D6B6" style="border-radius: 6px;">
-                                                <a href="{{$is_admin ? config('app.admin_url') : config('app.patient_url')}}/auth/reset?token={{$token}}&email={{$user->email}}" target="_blank" style="display: inline-block; padding: 16px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;">Réinitialiser</a>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
+{{--                <tr>--}}
+{{--                    <td align="left" bgcolor="#ffffff">--}}
+{{--                        <table border="0" cellpadding="0" cellspacing="0" width="100%">--}}
+{{--                            <tr>--}}
+{{--                                <td align="center" bgcolor="#ffffff" style="padding: 12px;">--}}
+{{--                                    <table border="0" cellpadding="0" cellspacing="0">--}}
+{{--                                        <tr>--}}
+{{--                                            <td align="center" bgcolor="#50D6B6" style="border-radius: 6px;">--}}
+{{--                                                <a href="{{$is_admin ? config('app.admin_url') : config('app.patient_url')}}/auth/reset?token={{$token}}&email={{$user->email}}" target="_blank" style="display: inline-block; padding: 16px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;">Réinitialiser</a>--}}
+{{--                                            </td>--}}
+{{--                                        </tr>--}}
+{{--                                    </table>--}}
+{{--                                </td>--}}
+{{--                            </tr>--}}
+{{--                        </table>--}}
+{{--                    </td>--}}
+{{--                </tr>--}}
                 <!-- end button -->
 
                 <!-- start copy -->
-                <tr>
-                    <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
-                        <p style="margin: 0;">Si ca ne marche pas, copiez et collez le lien suivant dans votre navigateur:</p>
-                        <p style="margin: 0;"><a href="{{$is_admin ? config('app.admin_url') : config('app.patient_url')}}/auth/reset?token={{$token}}&email={{$user->email}}" target="_blank">{{$is_admin ? config('app.admin_url') : config('app.patient_url')}}/auth/reset?token={{$token}}&email={{$user->email}}</a></p>
-                    </td>
-                </tr>
+{{--                <tr>--}}
+{{--                    <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">--}}
+{{--                        <p style="margin: 0;">Si ca ne marche pas, copiez et collez le lien suivant dans votre navigateur:</p>--}}
+{{--                        <p style="margin: 0;"><a href="{{$is_admin ? config('app.admin_url') : config('app.patient_url')}}/auth/reset?token={{$token}}&email={{$user->email}}" target="_blank">{{$is_admin ? config('app.admin_url') : config('app.patient_url')}}/auth/reset?token={{$token}}&email={{$user->email}}</a></p>--}}
+{{--                    </td>--}}
+{{--                </tr>--}}
                 <!-- end copy -->
 
                 <!-- start copy -->
-                <tr>
-                    <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
-                        <p style="margin: 0;">Ce lien de reinitialisation expire dans {{config('auth.passwords.'.config('auth.defaults.passwords').'.expire')}} minutes</p>
-                    </td>
-                </tr>
+{{--                <tr>--}}
+{{--                    <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">--}}
+{{--                        <p style="margin: 0;">Ce lien de reinitialisation expire dans {{config('auth.passwords.'.config('auth.defaults.passwords').'.expire')}} minutes</p>--}}
+{{--                    </td>--}}
+{{--                </tr>--}}
                 <!-- end copy -->
 
                 <!-- start copy -->

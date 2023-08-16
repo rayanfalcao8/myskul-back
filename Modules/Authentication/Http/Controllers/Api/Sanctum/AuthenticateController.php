@@ -21,6 +21,11 @@ class AuthenticateController extends CoreController
 //            $user->tokens()->delete();
 //        }
 
+        // check account status
+        if ($user?->email_verified_at === null) {
+            return $this->errorResponse(__('Attempting to login to an inactive user'), []);
+        }
+
         $sanitized = [
             'email' => strtolower($request->input('email')),
             'password' => $request->input('password'),
@@ -30,11 +35,6 @@ class AuthenticateController extends CoreController
             throw ValidationException::withMessages([
                 'email' => __('Invalid email address or password.'),
             ]);
-        }
-
-        // check account status
-        if ($user?->status === false) {
-            return $this->errorResponse(__('Attempting to login to an inactive user'), []);
         }
 
         $user->last_login_at = Carbon::now();
