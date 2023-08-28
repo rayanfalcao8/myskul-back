@@ -98,8 +98,7 @@ class UserController extends CoreController
             );
         }
         return $this->errorResponse(
-            __('Error updating password, old password incorrect'),
-            ['user' => new AuthenticateUserResource($user)],
+            __('Error updating password, old password incorrect')
             500
         );
     }
