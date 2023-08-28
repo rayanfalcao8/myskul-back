@@ -98,7 +98,7 @@ class UserController extends CoreController
             );
         }
         return $this->errorResponse(
-            __('Error updating password, old password incorrect')
+            __('Error updating password, old password incorrect'),
             500
         );
     }
