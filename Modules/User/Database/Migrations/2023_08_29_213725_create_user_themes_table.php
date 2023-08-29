@@ -17,11 +17,12 @@ return new class extends Migration
 //            $table->id();
 //            $table->boolean('done')->default(false);
 //            $table->integer('score');
-
-            $table->unsignedBigInteger('theme_id')->change();
-            $table->unsignedBigInteger('user_id')->change();
+//            $table->integer('theme_id');
+//            $table->integer('user_id');
             $table->timestamps();
+        });
 
+        Schema::table('user_themes', function (Blueprint $table) {
             $table->foreign('theme_id')->references('id')->on('themes');
             $table->foreign('user_id')->references('id')->on('users');
         });

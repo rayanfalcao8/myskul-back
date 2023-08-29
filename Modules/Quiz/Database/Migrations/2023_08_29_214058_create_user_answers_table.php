@@ -16,13 +16,14 @@ return new class extends Migration
         Schema::table('user_answers', function (Blueprint $table) {
 //            $table->id();
 //            $table->boolean('ok')->default(false);
+//            $table->integer('question_id');
+//            $table->integer('user_id');
+//            $table->timestamps();
+        });
 
-            $table->unsignedBigInteger('question_id')->change();
-            $table->unsignedBigInteger('user_id')->change();
-            $table->timestamps();
-
+        Schema::table('user_answers', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('question_id')->references('id')->on('questions');
+//            $table->foreign('question_id')->references('id')->on('questions');
         });
     }
 
