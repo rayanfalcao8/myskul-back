@@ -9,7 +9,15 @@ class UserTheme extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'ok',
+        'user_id',
+        'theme_id',
+    ];
+
+    protected $casts = [
+        'ok' => 'boolean',
+    ];
     
     protected static function newFactory()
     {

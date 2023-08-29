@@ -9,7 +9,13 @@ class Question extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'name',
+        'justification',
+        'points',
+        'next_id',
+        'theme_id',
+    ];
     
     protected static function newFactory()
     {

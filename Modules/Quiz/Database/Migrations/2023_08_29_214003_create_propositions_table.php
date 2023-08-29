@@ -13,8 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('propositions', function (Blueprint $table) {
-            $table->id();
+        Schema::table('propositions', function (Blueprint $table) {
+//            $table->id();
+//            $table->text('name');
 
             $table->timestamps();
         });

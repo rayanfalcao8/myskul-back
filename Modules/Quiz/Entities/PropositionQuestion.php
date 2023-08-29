@@ -9,7 +9,15 @@ class PropositionQuestion extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'isCorrect',
+        'proposition_id',
+        'question_id',
+    ];
+
+    protected $casts = [
+        'isCorrect' => 'boolean',
+    ];
     
     protected static function newFactory()
     {
