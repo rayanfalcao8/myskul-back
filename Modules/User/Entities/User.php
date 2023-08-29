@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\User\Traits\HasProfilePhoto;
 use Spatie\Permission\Traits\HasRoles;
@@ -24,22 +25,32 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var string[]|bool
      */
     protected $fillable = [
-        'first_name',
-        'last_name',
+        'name',
         'gender',
         'email',
         'password',
         'birthdate',
-        'phone_number',
+        'phoneNumber',
         'timezone',
         'language',
         'last_login_ip',
         'last_login_at',
         'status',
         'address',
-        'profile_photo_url',
-        'otp_code',
+        'avatarURL',
+        'level_id',
+        'speciality_id',
+        'phone_number_verified_at',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+        // Will fire everytime an User is created
+        static::created(function (User $user) {
+            $user->forceFill(['username' => Str::slug($user->name)])->save();
+        });
+    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -49,6 +60,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $hidden = [
         'password',
         'remember_token',
+        'token',
     ];
 
     /**

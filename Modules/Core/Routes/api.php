@@ -1,7 +1,6 @@
 <?php
 
 use Dingo\Api\Routing\Router;
-use Modules\Core\Http\Controllers\Api\CountryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,5 +16,4 @@ use Modules\Core\Http\Controllers\Api\CountryController;
 $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', ['middleware' => 'auth:sanctum'], function (Router $api) {
-    $api->get('/countries', [CountryController::class, 'getAllCountries']);
 });

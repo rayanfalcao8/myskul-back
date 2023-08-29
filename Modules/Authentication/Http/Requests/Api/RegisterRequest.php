@@ -21,7 +21,7 @@ class RegisterRequest extends FormRequest
                 new RealEmailValidator,
             ],
             'password' => ['required', Password::default()],
-//            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255'],
         ];
     }
 

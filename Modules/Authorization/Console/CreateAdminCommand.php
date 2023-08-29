@@ -35,8 +35,7 @@ class CreateAdminCommand extends Command
 
         $userData = [
             'email' => $email,
-            'first_name' => $name,
-            'last_name' => $name,
+            'name' => $name,
             'password' => Hash::make($password),
             'email_verified_at' => now()->toDateTimeString(),
             'last_login_at' => now()->toDateTimeString(),

@@ -27,7 +27,7 @@ class UserController extends CoreController
     public function exists(Request $request)
     {
         if($request->phone_number) {
-            $user = User::query()->where('phone_number', $request->phone_number)->first();
+            $user = User::query()->where('phoneNumber', $request->phone_number)->first();
             if($user) {
                 return $this->successResponse(__('User exists'), [
                     'user' => new AuthenticateUserResource($user),
@@ -64,15 +64,14 @@ class UserController extends CoreController
             $path = config('app.url').'/storage/'.$file->storeAs('profile', $name, 'public');
         }
         $data = array_filter([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
+            'name' => $request->name,
             'email' => $request->email,
             'gender' => $request->gender,
             'birthdate' => $request->birthdate,
-            'phone_number' => $request->phone_number,
-            'address' => $request->address,
+            'phoneNumber' => $request->phoneNumber,
+            'town' => $request->town,
             'status' => $request->status??$user->status,
-            'profile_photo_url' => $path,
+            'avatarURL' => $path,
         ]);
         $user->update($data);
 

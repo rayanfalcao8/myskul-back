@@ -123,7 +123,7 @@
                 <!-- start copy -->
                 <tr>
                     <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
-                        <p style="margin: 0;">Cher {{ $user->first_name }} {{ $user->last_name  }}, <b>MySkul</b> vous informe qu'une demande de reinitialisation de mot de passe a été initié pour votre compte.</p>
+                        <p style="margin: 0;">Cher {{ $user->name }}, <b>MySkul</b> vous informe qu'une demande de reinitialisation de mot de passe a été initié pour votre compte.</p>
                         <br>
 {{--                        <p style="margin: 0;">Cliquez sur le bouton ci-dessous pour proceder a la reinitialisation, sinon, ignorez simplement ce message, ou supprimmez le!</p>--}}
                     </td>

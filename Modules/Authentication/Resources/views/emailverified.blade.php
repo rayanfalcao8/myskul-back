@@ -123,7 +123,7 @@
                 <!-- start copy -->
                 <tr>
                     <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
-                        <p style="margin: 0;">Cher {{ $user->first_name  }}, MySkul a pu verifier que l'adresse e-mail {{ $user->email }} est la votre</p>
+                        <p style="margin: 0;">Cher {{ $user->name  }}, MySkul a pu verifier que l'adresse e-mail {{ $user->email }} est la votre</p>
                     </td>
                 </tr>
                 <!-- end copy -->

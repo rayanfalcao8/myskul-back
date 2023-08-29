@@ -20,8 +20,15 @@ class RoleTableSeeder extends Seeder
         $this->disableForeignKeys();
 
         Role::create([
-            'name' => 'admin',
+            'name' => 'sudo',
             'display_name' => 'Super Administrateur',
+            'description' => __('Administrateur de la plateforme avec accès au panneau d\'administration aux configurations et aux outils de développement.'),
+            'can_be_removed' => false,
+        ]);
+
+        Role::create([
+            'name' => 'admin',
+            'display_name' => 'Administrateur',
             'description' => __('Administrateur de la plateforme avec accès au panneau d\'administration aux configurations et aux outils de développement.'),
             'can_be_removed' => false,
         ]);

@@ -123,7 +123,7 @@
                 <!-- start copy -->
                 <tr>
                     <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
-                        <p style="margin: 0;">Cher {{ $user->first_name }} {{ $user->last_name  }}, <b>MySkul</b> vous informe qu'un compte a été crée avec votre adresse mail le {{ date('d-m-Y', strtotime($user->created_at)) }}, cliquez sur le bouton ci-dessous pour confirmer que c'est vous, sinon, ignorez simplement ce message, ou supprimmez le!</p>
+                        <p style="margin: 0;">Cher {{ $user->name }}, <b>MySkul</b> vous informe qu'un compte a été crée avec votre adresse mail le {{ date('d-m-Y', strtotime($user->created_at)) }}, cliquez sur le bouton ci-dessous pour confirmer que c'est vous, sinon, ignorez simplement ce message, ou supprimmez le!</p>
                     </td>
                 </tr>
                 <!-- end copy -->
