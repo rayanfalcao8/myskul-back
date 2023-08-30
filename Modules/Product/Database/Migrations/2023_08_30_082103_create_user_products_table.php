@@ -20,7 +20,7 @@ return new class extends Migration
 //            $table->string('createdAt');
 //            $table->string('contactedPhoneNumber');
 
-            $table->foreign('product_id')->references('id')->on('products');
+//            $table->foreign('product_id')->references('id')->on('products');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });

@@ -24,7 +24,7 @@ return new class extends Migration
 //            $table->string('createdAt');
 //            $table->string('expiresAt');
 
-            $table->foreign('abonnementType_id')->references('id')->on('abonnementTypes');
+            $table->foreign('abonnementType_id')->references('id')->on('abonnement_types');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
