@@ -1,6 +1,7 @@
 <?php
 
 use Dingo\Api\Routing\Router;
+use Modules\User\Http\Controllers\Api\LevelController;
 use Modules\User\Http\Controllers\Api\UserController;
 
 /*
@@ -21,4 +22,9 @@ $api->version('v1', ['middleware' => 'auth:sanctum'], function (Router $api) {
     $api->post('/user/profile/{id}', [UserController::class, 'update']);
     $api->put('/user/password', [UserController::class, 'updatePassword']);
     $api->delete('/user/delete/{id}', [UserController::class, 'destroy']);
+
+    $api->group(['prefix' => 'levels'], function (Router $api) {
+        $api->get('/{id}', [LevelController::class, 'show']);
+        $api->get('/', [LevelController::class, 'index']);
+    });
 });
