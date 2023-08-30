@@ -2,7 +2,9 @@
 
 use Dingo\Api\Routing\Router;
 use Modules\User\Http\Controllers\Api\CategoryController;
+use Modules\User\Http\Controllers\Api\DomainController;
 use Modules\User\Http\Controllers\Api\LevelController;
+use Modules\User\Http\Controllers\Api\SchoolController;
 use Modules\User\Http\Controllers\Api\SpecialityController;
 use Modules\User\Http\Controllers\Api\UserController;
 
@@ -38,5 +40,15 @@ $api->version('v1', ['middleware' => 'auth:sanctum'], function (Router $api) {
     $api->group(['prefix' => 'specialities'], function (Router $api) {
         $api->get('/{id}', [SpecialityController::class, 'show']);
         $api->get('/', [SpecialityController::class, 'index']);
+    });
+
+    $api->group(['prefix' => 'domains'], function (Router $api) {
+        $api->get('/', [DomainController::class, 'index']);
+        $api->get('/{id}', [DomainController::class, 'show']);
+    });
+
+    $api->group(['prefix' => 'schools'], function (Router $api) {
+        $api->get('/', [SchoolController::class, 'index']);
+        $api->get('/{id}', [SchoolController::class, 'show']);
     });
 });

@@ -40,6 +40,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'avatarURL',
         'level_id',
         'speciality_id',
+        'school_id',
         'phone_number_verified_at',
     ];
 
@@ -72,9 +73,24 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'phone_number_verified_at' => 'datetime',
         'last_login_at' => 'datetime',
-        'can_login' => 'boolean',
         'status' => 'boolean',
     ];
+
+    public function level() {
+        return $this->belongsTo(Level::class, 'level_id', 'id');
+    }
+
+    public function speciality() {
+        return $this->belongsTo(Speciality::class);
+    }
+
+    public function school() {
+        return $this->belongsTo(School::class);
+    }
+
+    public function domains() {
+        return $this->belongsToMany(Domain::class, 'user_domains', 'user_id', 'domain_id');
+    }
 
     public function isAdmin(): bool
     {

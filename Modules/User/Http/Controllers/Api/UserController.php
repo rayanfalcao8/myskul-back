@@ -72,9 +72,14 @@ class UserController extends CoreController
             'town' => $request->town,
             'status' => $request->status??$user->status,
             'avatarURL' => $path,
+            'level_id' => $request->level_id,
+            'speciality_id' => $request->speciality_id,
+            'school_id' => $request->school_id,
         ]);
         $user->update($data);
-
+        if ($request->domain_id) {
+            $user->domains()->sync($request->domain_id);
+        }
         return $this->successResponse(
             __('Update user successfully'),
             ['user' => new AuthenticateUserResource($user)]

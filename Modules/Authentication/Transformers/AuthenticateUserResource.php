@@ -28,11 +28,16 @@ class AuthenticateUserResource extends JsonResource
             'language' => $this->language,
             'status' => $this->status,
             'town' => $this->town,
-            'roles' => $this->userRoles(),
-            'permissions' => $this->userPermissions(),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'profile_image' => $this->avatarURL,
+            'level' => $this->level,
+            'speciality' => $this->speciality,
+            'school' => $this->school,
+            'domain' => $this->domains,
+
+            'roles' => $this->userRoles(),
+            'permissions' => $this->userPermissions(),
         ];
     }
 }
