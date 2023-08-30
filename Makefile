@@ -1,5 +1,5 @@
 deploy:
-	ssh o2switch 'cd ~/api.digihealthsarl.com && git merge origin/main && git push && make install'
+	ssh o2switch 'cd ~/api.digihealthsarl.com && git pull && make install'
 
 install: vendor/autoload.php .env public/storage
 	php artisan cache:clear
