@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\User\Transformers;
+namespace Modules\Quiz\Transformers;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Level extends JsonResource
+class QuestionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

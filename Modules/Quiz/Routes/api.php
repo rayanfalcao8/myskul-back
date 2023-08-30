@@ -1,6 +1,7 @@
 <?php
 
 use Dingo\Api\Routing\Router;
+use Modules\Quiz\Http\Controllers\Api\ThemeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,5 +17,10 @@ use Dingo\Api\Routing\Router;
 $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', ['middleware' => 'auth:sanctum'], function (Router $api) {
-    
+    $api->group(['prefix' => 'themes'], function (Router $api) {
+        $api->get('/', [ThemeController::class, 'index']);
+        $api->get('/level', [ThemeController::class, 'getByLevel']);
+        $api->get('/speciality', [ThemeController::class, 'getByLevelAndSpeciality']);
+        $api->get('/{id}', [ThemeController::class, 'show']);
+    });
 });

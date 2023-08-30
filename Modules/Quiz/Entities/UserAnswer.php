@@ -1,23 +1,26 @@
 <?php
 
-namespace Modules\User\Entities;
+namespace Modules\Quiz\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class UserTheme extends Model
+class UserAnswer extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'done',
-        'score',
-        'theme_id',
+        'ok',
         'user_id',
+        'question_id',
     ];
 
+    protected $casts = [
+        'ok' => 'boolean',
+    ];
+    
     protected static function newFactory()
     {
-        return \Modules\User\Database\factories\UserThemeFactory::new();
+        return \Modules\Quiz\Database\factories\UserAnswerFactory::new();
     }
 }
