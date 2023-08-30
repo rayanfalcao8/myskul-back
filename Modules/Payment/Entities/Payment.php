@@ -9,7 +9,16 @@ class Payment extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'transactionID',
+        'transactionType',
+        'phoneNumber',
+        'montant',
+        'service_sigle',
+        'user_id',
+        'createdAt',
+        'status',
+    ];
     
     protected static function newFactory()
     {

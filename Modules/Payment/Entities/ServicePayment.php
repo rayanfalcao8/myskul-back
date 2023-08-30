@@ -9,7 +9,11 @@ class ServicePayment extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'sigle',
+        'service',
+        'description',
+    ];
     
     protected static function newFactory()
     {

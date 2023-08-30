@@ -13,10 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('payments', function (Blueprint $table) {
-            $table->id();
-
-            $table->timestamps();
+        Schema::table('payments', function (Blueprint $table) {
+//            $table->id();
+//            $table->string('transactionID');
+//            $table->string('transactionType');
+//            $table->string('phoneNumber');
+//            $table->integer('montant');
+//            $table->string('service_sigle');
+//            $table->integer('user_id');
+//            $table->string('createdAt');
+//            $table->string('status');
+//            $table->timestamps();
         });
     }
 
