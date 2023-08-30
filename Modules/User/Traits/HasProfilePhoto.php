@@ -9,13 +9,13 @@ trait HasProfilePhoto
      *
      * @return string
      */
-    public function getProfilePhotoUrlAttribute(): string
+    public function getAvatarURLAttribute(): string
     {
         if ($this->attributes['avatarURL'] != null || $this->attributes['avatarURL'] != "") {
             return $this->attributes['avatarURL'];
         }
 
-        return $this->defaultProfilePhotoUrl();
+        return $this->defaultAvatarURL();
     }
 
     /**
@@ -23,7 +23,7 @@ trait HasProfilePhoto
      *
      * @return string
      */
-    protected function defaultProfilePhotoUrl(): string
+    protected function defaultAvatarURL(): string
     {
         return 'https://ui-avatars.com/api/?name='.urlencode($this->name).'&color=226520&background=E3FFE3';
     }

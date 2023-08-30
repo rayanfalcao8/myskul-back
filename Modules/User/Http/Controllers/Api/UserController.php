@@ -54,7 +54,7 @@ class UserController extends CoreController
     public function update(Request $request, int $id)
     {
         $user = User::findOrFail($id);
-        $path = null;
+        $path = $user->avatarURL;
         if($request->hasFile('profile_image')){
 
             $file = $request->file('profile_image');
