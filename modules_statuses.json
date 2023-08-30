@@ -3,5 +3,8 @@
     "Authentication": true,
     "Core": true,
     "User": true,
-    "Quiz": true
+    "Quiz": true,
+    "Payment": true,
+    "Subscription": true,
+    "Product": true
 }
