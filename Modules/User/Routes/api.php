@@ -1,7 +1,9 @@
 <?php
 
 use Dingo\Api\Routing\Router;
+use Modules\User\Http\Controllers\Api\CategoryController;
 use Modules\User\Http\Controllers\Api\LevelController;
+use Modules\User\Http\Controllers\Api\SpecialityController;
 use Modules\User\Http\Controllers\Api\UserController;
 
 /*
@@ -26,5 +28,15 @@ $api->version('v1', ['middleware' => 'auth:sanctum'], function (Router $api) {
     $api->group(['prefix' => 'levels'], function (Router $api) {
         $api->get('/{id}', [LevelController::class, 'show']);
         $api->get('/', [LevelController::class, 'index']);
+    });
+
+    $api->group(['prefix' => 'categories'], function (Router $api) {
+        $api->get('/{id}', [CategoryController::class, 'show']);
+        $api->get('/', [CategoryController::class, 'index']);
+    });
+
+    $api->group(['prefix' => 'specialities'], function (Router $api) {
+        $api->get('/{id}', [SpecialityController::class, 'show']);
+        $api->get('/', [SpecialityController::class, 'index']);
     });
 });
