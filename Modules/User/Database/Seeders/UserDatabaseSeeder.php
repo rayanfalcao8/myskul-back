@@ -14,6 +14,11 @@ class UserDatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call([
+            DomainTableSeeder::class,
+            SchoolTableSeeder::class,
+        ]);
+
         $model = config('auth.providers.users.model');
         $user = tap((new $model)->forceFill([
             'email' => 'admin@admin.com',
