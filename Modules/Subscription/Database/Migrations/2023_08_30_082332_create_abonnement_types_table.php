@@ -13,8 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('abonnement_types', function (Blueprint $table) {
-            $table->id();
+        Schema::table('abonnement_types', function (Blueprint $table) {
+//            $table->id();
+//            $table->string('category');
+//            $table->string('timeUnit');
+//            $table->integer('duration');
 
             $table->timestamps();
         });

@@ -9,7 +9,11 @@ class AbonnementType extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'category',
+        'timeUnit',
+        'duration'
+    ];
     
     protected static function newFactory()
     {

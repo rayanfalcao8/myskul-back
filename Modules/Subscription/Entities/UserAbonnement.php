@@ -9,7 +9,16 @@ class UserAbonnement extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'user_id',
+        'abonnementType_id',
+        'transactionID',
+        'buyerPhoneNumber',
+        'level_id',
+        'speciality_id',
+        'createdAt',
+        'expiresAt'
+    ];
     
     protected static function newFactory()
     {
