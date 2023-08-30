@@ -11,8 +11,8 @@ trait HasProfilePhoto
      */
     public function getProfilePhotoUrlAttribute(): string
     {
-        if ($this->attributes['avatarUrl'] != null || $this->attributes['avatarUrl'] != "") {
-            return $this->attributes['avatarUrl'];
+        if ($this->attributes['avatarURL'] != null || $this->attributes['avatarURL'] != "") {
+            return $this->attributes['avatarURL'];
         }
 
         return $this->defaultProfilePhotoUrl();
