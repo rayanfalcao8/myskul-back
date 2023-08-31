@@ -40,6 +40,10 @@ class Theme extends Model
         return $this->belongsTo(Speciality::class);
     }
 
+//    public function quiz() {
+//        return $this->hasOne(UserTheme::class);
+//    }
+
     protected static function newFactory()
     {
         return \Modules\User\Database\factories\ThemeFactory::new();

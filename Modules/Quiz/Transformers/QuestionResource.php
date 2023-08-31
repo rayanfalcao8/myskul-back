@@ -24,7 +24,7 @@ class QuestionResource extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
 
-            'answers' => $this->answers,
+            'answers' => PropositionResource::collection($this->answers),
             'theme' => $this->theme
         ];
     }

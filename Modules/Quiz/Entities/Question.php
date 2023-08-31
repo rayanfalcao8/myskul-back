@@ -22,6 +22,7 @@ class Question extends Model
     }
 
     public function answers() {
-        return $this->belongsToMany(Proposition::class, 'proposition_questions', 'question_id', 'proposition_id');
+        return $this->belongsToMany(Proposition::class, 'proposition_questions', 'question_id', 'proposition_id')
+            ->withPivot('isCorrect');
     }
 }
