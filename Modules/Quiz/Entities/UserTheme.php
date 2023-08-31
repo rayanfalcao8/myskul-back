@@ -29,6 +29,10 @@ class UserTheme extends Model
         return $this->belongsTo(Theme::class);
     }
 
+    public function questions() {
+        return $this->theme->questions();
+    }
+
     protected static function newFactory()
     {
         return \Modules\User\Database\factories\UserThemeFactory::new();

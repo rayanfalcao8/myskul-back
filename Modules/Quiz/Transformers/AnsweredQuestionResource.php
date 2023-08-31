@@ -4,7 +4,7 @@ namespace Modules\Quiz\Transformers;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class QuizResource extends JsonResource
+class AnsweredQuestionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,16 +16,13 @@ class QuizResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'done' => $this->done,
-            'score' => $this->score,
+            'name' => $this->name,
+            'justification' => $this->justification,
+            'points' => $this->points,
+            'next_id' => $this->next_id,
             'theme_id' => $this->theme_id,
-            'user_id' => $this->user_id,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-
-            'user' => $this->user,
             'theme' => $this->theme,
-            'questions' => QuestionResource::collection($this->questions)
+            'ok' => (bool)$this->pivot->ok
         ];
     }
 }

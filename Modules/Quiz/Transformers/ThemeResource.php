@@ -27,6 +27,7 @@ class ThemeResource extends JsonResource
             'speciality' => $this->speciality,
             'level' => $this->level,
             'category' => $this->category,
+            'questions' => QuestionResource::collection($this->questions),
 //            'quiz_info' => $this->quiz
         ];
     }

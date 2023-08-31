@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
+use Modules\Quiz\Entities\Question;
 use Modules\Quiz\Entities\UserTheme;
 use Modules\User\Traits\HasProfilePhoto;
 use Spatie\Permission\Traits\HasRoles;
@@ -95,6 +96,11 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function quizzes() {
         return $this->hasMany(UserTheme::class);
+    }
+
+    public function answers() {
+        return $this->belongsToMany(Question::class, 'user_answers', 'user_id', 'question_id')
+            ->withPivot('ok');
     }
 
     public function isAdmin(): bool

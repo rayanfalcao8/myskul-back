@@ -3,10 +3,11 @@
 namespace Modules\Quiz\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Modules\Core\Http\Controllers\Api\CoreController;
 use Modules\Quiz\Entities\UserTheme;
+use Modules\Quiz\Transformers\AnsweredQuestionResource;
 use Modules\Quiz\Transformers\QuizResource;
+use Modules\User\Entities\User;
 
 class QuizController extends CoreController
 {
@@ -64,13 +65,16 @@ class QuizController extends CoreController
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Response
-     */
-    public function destroy($id)
+    public function getAnsweredQuestions(Request $request)
     {
-        //
+        return $this->successResponse("User answered questions", [
+            'answers' => AnsweredQuestionResource::collection(User::find(34)->answers
+                            ->when($request->theme_id, function ($query, $theme_id) {
+                                return $query->where('theme_id', $theme_id);
+                            })
+                            ->when($request->question_id, function ($query, $question_id) {
+                                return $query->where('id', $question_id);
+                            }))
+        ]);
     }
 }
