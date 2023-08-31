@@ -16,9 +16,12 @@ class Question extends Model
         'next_id',
         'theme_id',
     ];
-    
-    protected static function newFactory()
-    {
-        return \Modules\Quiz\Database\factories\QuestionFactory::new();
+
+    public function theme() {
+        return $this->belongsTo(Theme::class);
+    }
+
+    public function answers() {
+        return $this->belongsToMany(Proposition::class, 'proposition_questions', 'question_id', 'proposition_id');
     }
 }

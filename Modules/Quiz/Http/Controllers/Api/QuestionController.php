@@ -5,54 +5,37 @@ namespace Modules\Quiz\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Modules\Core\Http\Controllers\Api\CoreController;
+use Modules\Quiz\Entities\Question;
+use Modules\Quiz\Transformers\QuestionResource;
 
 class QuestionController extends CoreController
 {
-    /**
-     * Display a listing of the resource.
-     * @return Response
-     */
     public function index()
     {
-        //
+        return $this->successResponse("got all questions successfully", [
+            'questions' => QuestionResource::collection(Question::all())
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Response
-     */
-    public function store(Request $request)
+    public function getByTheme($id)
     {
-        //
+        return $this->successResponse("got all theme questions successfully", [
+            'questions' => QuestionResource::collection(Question::where('theme_id', $id)->get())
+        ]);
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Response
-     */
     public function show($id)
     {
-        //
+        return $this->successResponse("got question successfully", [
+            'question' => new QuestionResource(Question::findOrFail($id))
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Response
-     */
     public function destroy($id)
     {
         //

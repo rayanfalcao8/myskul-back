@@ -1,6 +1,7 @@
 <?php
 
 use Dingo\Api\Routing\Router;
+use Modules\Quiz\Http\Controllers\Api\QuestionController;
 use Modules\Quiz\Http\Controllers\Api\QuizController;
 use Modules\Quiz\Http\Controllers\Api\ThemeController;
 
@@ -30,8 +31,12 @@ $api->version('v1', ['middleware' => 'auth:sanctum'], function (Router $api) {
         $api->get('/', [QuizController::class, 'getByUser']);
         $api->post('/', [QuizController::class, 'store']);
         $api->put('/{id}', [QuizController::class, 'update']);
-        $api->get('/level', [QuizController::class, 'getByLevel']);
-        $api->get('/speciality', [QuizController::class, 'getByLevelAndSpeciality']);
         $api->get('/{id}', [QuizController::class, 'show']);
+    });
+
+    $api->group(['prefix' => 'questions'], function (Router $api) {
+        $api->get('/', [QuestionController::class, 'index']);
+        $api->get('/theme/{theme_id}', [QuestionController::class, 'getByTheme']);
+        $api->get('/{id}', [QuestionController::class, 'show']);
     });
 });
