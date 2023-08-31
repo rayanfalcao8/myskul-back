@@ -3,6 +3,7 @@
 use Dingo\Api\Routing\Router;
 use Modules\Quiz\Http\Controllers\Api\QuestionController;
 use Modules\Quiz\Http\Controllers\Api\QuizController;
+use Modules\Quiz\Http\Controllers\Api\ScoreController;
 use Modules\Quiz\Http\Controllers\Api\ThemeController;
 
 /*
@@ -39,5 +40,10 @@ $api->version('v1', ['middleware' => 'auth:sanctum'], function (Router $api) {
         $api->get('/', [QuestionController::class, 'index']);
         $api->get('/theme/{theme_id}', [QuestionController::class, 'getByTheme']);
         $api->get('/{id}', [QuestionController::class, 'show']);
+    });
+
+    $api->group(['prefix' => 'score'], function (Router $api) {
+        $api->get('/leaderboard', [ScoreController::class, 'leaderboard']);
+        $api->get('/', [ScoreController::class, 'score']);
     });
 });

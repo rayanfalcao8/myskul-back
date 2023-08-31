@@ -68,7 +68,7 @@ class QuizController extends CoreController
     public function getAnsweredQuestions(Request $request)
     {
         return $this->successResponse("User answered questions", [
-            'answers' => AnsweredQuestionResource::collection(User::find(34)->answers
+            'answers' => AnsweredQuestionResource::collection($request->user()->answers
                             ->when($request->theme_id, function ($query, $theme_id) {
                                 return $query->where('theme_id', $theme_id);
                             })

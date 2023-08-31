@@ -103,6 +103,27 @@ class User extends Authenticatable implements MustVerifyEmail
             ->withPivot('ok');
     }
 
+    public function score($theme_id = null): int {
+        $score = 0;
+        if($theme_id !== null) {
+            if(!$this->answers->contains('theme_id', $theme_id)){
+                return $score;
+            }
+            $this->answers->where('theme_id', $theme_id)->each(function ($answer) use (&$score) {
+                if($answer->pivot->ok == 1){
+                    $score += $answer->points;
+                }
+            });
+            return $score;
+        }
+        $this->answers->each(function ($answer) use (&$score) {
+            if($answer->pivot->ok == 1){
+                $score += $answer->points;
+            }
+        });
+        return $score;
+    }
+
     public function isAdmin(): bool
     {
         return $this->hasRole('admin');
