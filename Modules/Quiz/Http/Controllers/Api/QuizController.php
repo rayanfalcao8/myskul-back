@@ -14,7 +14,7 @@ class QuizController extends CoreController
     public function index(Request $request)
     {
         return $this->successResponse("Got quiz list", [
-            'quizzes' => QuizResource::collection(UserTheme::all())
+            'quizzes' => QuizResource::collection(UserTheme::paginate(10))
         ]);
     }
 
