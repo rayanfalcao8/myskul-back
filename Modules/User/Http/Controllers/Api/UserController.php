@@ -77,6 +77,7 @@ class UserController extends CoreController
             'school_id' => $request->school_id,
         ]);
         $user->update($data);
+        $user->save();
         if ($request->domain_id) {
             $user->domains()->sync($request->domain_id);
         }
