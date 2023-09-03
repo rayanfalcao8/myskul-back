@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Modules\User\Entities\Category;
 use Modules\User\Entities\Level;
 use Modules\User\Entities\Speciality;
+use Modules\User\Entities\User;
 
 class Theme extends Model
 {
@@ -40,9 +41,13 @@ class Theme extends Model
         return $this->belongsTo(Speciality::class);
     }
 
-//    public function quiz() {
-//        return $this->hasOne(UserTheme::class);
-//    }
+    public function users() {
+        return $this->belongsToMany(User::class, 'user_themes', 'theme_id', 'user_id');
+    }
+
+    public function quiz() {
+        return $this->hasMany(UserTheme::class);
+    }
 
     protected static function newFactory()
     {

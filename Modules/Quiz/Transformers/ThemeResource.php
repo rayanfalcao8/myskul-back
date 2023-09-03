@@ -28,7 +28,7 @@ class ThemeResource extends JsonResource
             'level' => $this->level,
             'category' => $this->category,
             'questions' => QuestionResource::collection($this->questions),
-//            'quiz_info' => $this->quiz
+            'quiz_info' => $this->quiz->where('user_id', $request->user()->id)->first()
         ];
     }
 }

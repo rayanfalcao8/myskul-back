@@ -4,9 +4,11 @@ namespace Modules\Quiz\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use Modules\Core\Http\Controllers\Api\CoreController;
+use Modules\Quiz\Entities\Theme;
 use Modules\Quiz\Entities\UserTheme;
 use Modules\Quiz\Transformers\AnsweredQuestionResource;
 use Modules\Quiz\Transformers\QuizResource;
+use Modules\Quiz\Transformers\ThemeResource;
 use Modules\User\Entities\User;
 
 class QuizController extends CoreController
@@ -21,7 +23,7 @@ class QuizController extends CoreController
     public function getByUser(Request $request)
     {
         return $this->successResponse("Got user quiz list", [
-            'quizzes' => QuizResource::collection($request->user()->quizzes)
+            'quizzes' => ThemeResource::collection($request->user()->themes->merge(Theme::where('free', true)->get()))
         ]);
     }
 

@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\Quiz\Entities\Question;
+use Modules\Quiz\Entities\Theme;
 use Modules\Quiz\Entities\UserTheme;
 use Modules\User\Traits\HasProfilePhoto;
 use Spatie\Permission\Traits\HasRoles;
@@ -96,6 +97,10 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function quizzes() {
         return $this->hasMany(UserTheme::class);
+    }
+
+    public function themes() {
+        return $this->belongsToMany(Theme::class, 'user_themes', 'user_id', 'theme_id');
     }
 
     public function answers() {
