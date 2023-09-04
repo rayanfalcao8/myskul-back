@@ -10,8 +10,13 @@ use Modules\User\Transformers\SpecialityResource;
 
 class SpecialityController extends CoreController
 {
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->type) {
+            return $this->successResponse('Got specialities successfully', [
+                'specialities' => SpecialityResource::collection(Speciality::where('type', $request->type)->paginate())
+            ]);
+        }
         return $this->successResponse('Got specialities successfully', [
             'specialities' => SpecialityResource::collection(Speciality::paginate())
         ]);

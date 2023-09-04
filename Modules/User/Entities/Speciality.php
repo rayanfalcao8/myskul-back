@@ -12,6 +12,7 @@ class Speciality extends Model
     protected $fillable = [
         'sigle',
         'speciality',
+        'type'
     ];
 
     protected static function newFactory()
