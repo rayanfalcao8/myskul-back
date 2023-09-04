@@ -92,7 +92,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     public function domains() {
-        return $this->belongsToMany(Domain::class, 'user_domains', 'user_id', 'domain_id');
+        return $this->belongsToMany(Domain::class, 'user_abonnements', 'user_id', 'domain_id');
     }
 
     public function quizzes() {
