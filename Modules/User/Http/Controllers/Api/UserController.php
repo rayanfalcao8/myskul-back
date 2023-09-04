@@ -81,10 +81,11 @@ class UserController extends CoreController
         if ($request->domain_id) {
             $user->domains()->syncWithPivotValues($request->domain_id, [
                 'abonnementType_id' => 2,
-                'trasactionID' => 'default',
-                'buyerPhoneNumber' => $user->phoneNumber,
+                'transactionID' => 'default',
+                'buyerPhoneNumber' => $user->phoneNumber??'none',
                 'level_id' => $user->level_id,
                 'speciality_id' => $user->speciality_id,
+                'createdAt' => now(),
                 'expireAt' => now()->addYears(5),
             ]);
         }
