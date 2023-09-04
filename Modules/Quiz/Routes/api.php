@@ -30,6 +30,7 @@ $api->version('v1', ['middleware' => 'auth:sanctum'], function (Router $api) {
     $api->group(['prefix' => 'quiz'], function (Router $api) {
 //        $api->get('/', [QuizController::class, 'index']);
         $api->get('/', [QuizController::class, 'getByUser']);
+        $api->get('/caterory/{id}', [QuizController::class, 'getByCategory']);
         $api->post('/', [QuizController::class, 'store']);
         $api->put('/{id}', [QuizController::class, 'update']);
         $api->get('/answers', [QuizController::class, 'getAnsweredQuestions']);
