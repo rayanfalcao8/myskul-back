@@ -16,14 +16,14 @@ class QuizController extends CoreController
     public function index(Request $request)
     {
         return $this->successResponse("Got quiz list", [
-            'quizzes' => QuizResource::collection(UserTheme::paginate(10))
+//            'quizzes' => QuizResource::collection(UserTheme::paginate(10))
         ]);
     }
 
     public function getByUser(Request $request)
     {
         return $this->successResponse("Got user quiz list", [
-            'quizzes' => ThemeResource::collection($request->user()->themes->merge(Theme::where('free', true)->get()))
+            'quizzes' => QuizResource::collection($request->user()->themes->merge(Theme::where('free', true)->get()))
         ]);
     }
 

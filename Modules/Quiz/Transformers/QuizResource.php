@@ -16,16 +16,18 @@ class QuizResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'done' => $this->done,
-            'score' => $this->score,
-            'theme_id' => $this->theme_id,
-            'user_id' => $this->user_id,
+            'name' => $this->name,
+            'free' => $this->free,
+            'category_id' => $this->category_id,
+            'level_id' => $this->level_id,
+            'speciality_id' => $this->speciality_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
 
-            'user' => $this->user,
-            'theme' => $this->theme,
-            'questions' => QuestionResource::collection($this->questions)
+            'speciality' => $this->speciality,
+            'level' => $this->level,
+            'category' => $this->category,
+            'quiz_info' => $this->quiz->where('user_id', $request->user()->id)->first()
         ];
     }
 }
