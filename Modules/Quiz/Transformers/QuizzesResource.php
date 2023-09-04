@@ -26,7 +26,7 @@ class QuizzesResource extends JsonResource
             'speciality_id' => $this->speciality_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-
+            'nb_questions' => $this->questions->count(),
             'speciality' => $this->speciality,
             'level' => $this->level,
             'category' => $this->category,
