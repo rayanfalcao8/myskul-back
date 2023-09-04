@@ -14,10 +14,13 @@ class QuizzesResource extends JsonResource
      */
     public function toArray($request)
     {
+        $data = $this->quiz->where('user_id', $request->user()->id)->first();
         return [
             'id' => $this->id,
             'name' => $this->name,
             'free' => $this->free,
+            'score' => $data->score,
+            'done' => $data->done,
             'category_id' => $this->category_id,
             'level_id' => $this->level_id,
             'speciality_id' => $this->speciality_id,
@@ -27,7 +30,6 @@ class QuizzesResource extends JsonResource
             'speciality' => $this->speciality,
             'level' => $this->level,
             'category' => $this->category,
-            'quiz_info' => $this->quiz->where('user_id', $request->user()->id)->first()
         ];
     }
 }
