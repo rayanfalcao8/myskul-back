@@ -20,7 +20,7 @@ class QuizzesResource extends JsonResource
             'name' => $this->name,
             'free' => $this->free,
             'score' => $data->score ?? null,
-            'done' => $data->done ?? null,
+            'done' => $data->done ?? false,
             'category_id' => $this->category_id,
             'level_id' => $this->level_id,
             'speciality_id' => $this->speciality_id,
