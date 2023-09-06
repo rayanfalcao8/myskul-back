@@ -31,7 +31,10 @@ class QuizController extends CoreController
     public function getByCategory(Request $request, $id)
     {
         return $this->successResponse("Got category quiz list", [
-            'quizzes' => QuizzesResource::collection(Theme::where('category_id', $id))
+//            'quizzes' => Theme::where('category_id', $id)->get()
+                QuizzesResource::collection(
+                Theme::where('category_id', $id)->get()
+            )
         ]);
     }
 
