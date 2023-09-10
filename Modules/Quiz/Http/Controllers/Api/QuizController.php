@@ -9,8 +9,6 @@ use Modules\Quiz\Entities\UserTheme;
 use Modules\Quiz\Transformers\AnsweredQuestionResource;
 use Modules\Quiz\Transformers\QuizResource;
 use Modules\Quiz\Transformers\QuizzesResource;
-use Modules\Quiz\Transformers\ThemeResource;
-use Modules\User\Entities\User;
 
 class QuizController extends CoreController
 {
@@ -24,7 +22,7 @@ class QuizController extends CoreController
     public function getByUser(Request $request)
     {
         return $this->successResponse("Got user quiz list", [
-            'quizzes' => QuizzesResource::collection($request->user()->themes->merge(Theme::where('free', true)->get()))
+            'quizzes' => QuizzesResource::collection($request->user()->themes->merge(Theme::with('quiz,questions,speciality,level,category')->where('free', true)->get()))
         ]);
     }
 
@@ -32,7 +30,7 @@ class QuizController extends CoreController
     {
         return $this->successResponse("Got category quiz list", [
             'quizzes' => QuizzesResource::collection(
-                Theme::where('category_id', $id)->get()
+                Theme::with('quiz,questions,speciality,level,category')->where('category_id', $id)->get()
             )
         ]);
     }

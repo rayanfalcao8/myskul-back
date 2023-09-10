@@ -35,7 +35,7 @@ class ForgotPasswordController extends CoreController
     {
         DB::table('password_resets')->where(['email'=> $request->email])->delete();
 
-        $token = Str::random(64);
+        $token = bcrypt($request->email);
         DB::table('password_resets')->insert([
             'email' => $request->email,
             'token' => $token,
