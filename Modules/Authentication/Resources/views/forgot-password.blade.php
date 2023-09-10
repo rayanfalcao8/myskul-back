@@ -154,7 +154,7 @@
                 <tr>
                     <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
                         <p style="margin: 0;">Si ca ne marche pas, copiez et collez le lien suivant dans votre navigateur:</p>
-                        <p style="margin: 0;"><a href="{{$is_admin ? config('app.admin_url') : config('app.patient_url')}}/auth/reset?token={{$token}}&email={{$user->email}}" target="_blank">{{$is_admin ? config('app.admin_url') : config('app.patient_url')}}/auth/reset?token={{$token}}&email={{$user->email}}</a></p>
+                        <p style="margin: 0;"><a href="myskulapp://mobile.digihealthsarl.com/auth/reset?token={{$token}}&email={{$user->email}}" target="_blank">myskulapp://mobile.digihealthsarl.com/auth/reset?token={{$token}}&email={{$user->email}}</a></p>
                     </td>
                 </tr>
                 <!-- end copy -->
