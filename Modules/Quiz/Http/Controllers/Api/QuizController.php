@@ -22,7 +22,7 @@ class QuizController extends CoreController
     public function getByUser(Request $request)
     {
         return $this->successResponse("Got user quiz list", [
-            'quizzes' => QuizzesResource::collection($request->user()->themes->merge(Theme::with('quiz,questions,speciality,level,category')->where('free', true)->get()))
+            'quizzes' => QuizzesResource::collection($request->user()->themes->merge(Theme::with('quiz','questions','speciality','level','category')->where('free', true)->get()))
         ]);
     }
 
@@ -30,7 +30,7 @@ class QuizController extends CoreController
     {
         return $this->successResponse("Got category quiz list", [
             'quizzes' => QuizzesResource::collection(
-                Theme::with('quiz,questions,speciality,level,category')->where('category_id', $id)->get()
+                Theme::with('quiz','questions','speciality','level','category')->where('category_id', $id)->get()
             )
         ]);
     }
