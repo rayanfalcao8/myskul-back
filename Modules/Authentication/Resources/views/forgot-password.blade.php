@@ -139,7 +139,7 @@
                                     <table border="0" cellpadding="0" cellspacing="0">
                                         <tr>
                                             <td align="center" bgcolor="#50D6B6" style="border-radius: 6px;">
-                                                <a href={{url($url)}} target="_blank" style="display: inline-block; padding: 16px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;">Réinitialiser</a>
+                                                <a href="{{url($url)}}" target="_blank" style="display: inline-block; padding: 16px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;">Réinitialiser</a>
                                             </td>
                                         </tr>
                                     </table>
@@ -154,7 +154,7 @@
                 <tr>
                     <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
                         <p style="margin: 0;">Si ca ne marche pas, copiez et collez le lien suivant dans votre navigateur:</p>
-                        <p style="margin: 0;"><a href={{url($url)}} target="_blank">{{$url}}</a></p>
+                        <p style="margin: 0;"><a href="{{url($url)}}" target="_blank">{{url($url)}}</a></p>
                     </td>
                 </tr>
                 <!-- end copy -->
