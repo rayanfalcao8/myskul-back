@@ -3,6 +3,7 @@
 namespace Modules\Authentication\Transformers;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Modules\Subscription\Transformers\SubscriptionResource;
 
 class AuthenticateUserResource extends JsonResource
 {
@@ -35,9 +36,10 @@ class AuthenticateUserResource extends JsonResource
             'speciality' => $this->speciality,
             'school' => $this->school,
             'domain' => $this->domains,
+            'subscriptions' => SubscriptionResource::collection($this->subscriptions),
 
-            'roles' => $this->userRoles(),
-            'permissions' => $this->userPermissions(),
+//            'roles' => $this->userRoles(),
+//            'permissions' => $this->userPermissions(),
         ];
     }
 }

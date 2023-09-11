@@ -4,6 +4,9 @@ namespace Modules\Subscription\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\User\Entities\Domain;
+use Modules\User\Entities\Level;
+use Modules\User\Entities\Speciality;
 
 class UserAbonnement extends Model
 {
@@ -19,6 +22,18 @@ class UserAbonnement extends Model
         'createdAt',
         'expiresAt'
     ];
+
+    public function level() {
+        return $this->belongsTo(Level::class);
+    }
+
+    public function speciality() {
+        return $this->belongsTo(Speciality::class);
+    }
+
+    public function domain() {
+        return $this->belongsTo(Domain::class);
+    }
     
     protected static function newFactory()
     {

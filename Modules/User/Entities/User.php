@@ -11,6 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Modules\Quiz\Entities\Question;
 use Modules\Quiz\Entities\Theme;
 use Modules\Quiz\Entities\UserTheme;
+use Modules\Subscription\Entities\UserAbonnement;
 use Modules\User\Traits\HasProfilePhoto;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -101,6 +102,10 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function themes() {
         return $this->belongsToMany(Theme::class, 'user_themes', 'user_id', 'theme_id');
+    }
+
+    public function subscriptions() {
+        return $this->hasMany(UserAbonnement::class);
     }
 
     public function answers() {

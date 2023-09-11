@@ -5,6 +5,7 @@ namespace Modules\Subscription\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Modules\Core\Http\Controllers\Api\CoreController;
+use Modules\Subscription\Transformers\SubscriptionResource;
 
 class SubscriptionController extends CoreController
 {
@@ -12,9 +13,11 @@ class SubscriptionController extends CoreController
      * Display a listing of the resource.
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        return $this->successResponse("Got subscriptions", [
+            'subscriptions' => SubscriptionResource::collection($request->user()->subscriptions)
+        ]);
     }
 
     /**
