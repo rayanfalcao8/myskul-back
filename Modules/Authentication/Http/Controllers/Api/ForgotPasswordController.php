@@ -43,7 +43,7 @@ class ForgotPasswordController extends CoreController
         ]);
 
         $user = User::query()->where('email', $request->email)->firstOrFail();
-        Mail::send('authentication::forgot-password', ['token' => $token, 'user' => $user, 'logo' => 'img/logo.png'],
+        Mail::send('authentication::forgot-password', ['url' => urlencode("myskulapp://mobile.digihealthsarl.com/auth/reset?token=$token&email=$user->email"), 'user' => $user, 'logo' => 'img/logo.png'],
             function($message) use($request){
                 $message->to($request->email);
                 $message->subject('Reset Password Notification');
