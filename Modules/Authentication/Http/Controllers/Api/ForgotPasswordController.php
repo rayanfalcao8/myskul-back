@@ -42,7 +42,10 @@ class ForgotPasswordController extends CoreController
             'created_at' => Carbon::now()
         ]);
 
-        $user = User::query()->where('email', $request->email)->firstOrFail();
+        $user = User::query()->where('email', $request->email)->first();
+        if($user == null) {
+            return $this->errorResponse(__("User not found"));
+        }
         Mail::send('authentication::forgot-password', ['url' => 'myskulapp://mobile.digihealthsarl.com/auth/reset?token='.$token.'&email='.$user->email, 'user' => $user, 'logo' => 'img/logo.png'],
             function($message) use($request){
                 $message->to($request->email);
