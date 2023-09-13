@@ -20,7 +20,7 @@ class UserAbonnement extends Model
         'level_id',
         'speciality_id',
         'createdAt',
-        'expiresAt'
+        'expireAt'
     ];
 
     public function level() {
