@@ -5,6 +5,7 @@ namespace Modules\Quiz\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Modules\Core\Http\Controllers\Api\CoreController;
+use Modules\Quiz\Transformers\LeaderResource;
 use Modules\User\Entities\User;
 
 class ScoreController extends CoreController
@@ -25,11 +26,13 @@ class ScoreController extends CoreController
             ->sortByDesc(function ($user) {
                 return $user['score'];
             })->values();
+        $me =$users->search(function($user) use ($request) {
+            return $user->id === $request->user()->id;
+        });
         return $this->successResponse("Got leaderboard", [
-            'leaderboard' => $users,
-            'position' => $users->search(function($user) use ($request) {
-                return $user->id === $request->user()->id;
-            }) + 1,
+            'leaderboard' => LeaderResource::collection($users),
+            'position' =>  $me + 1,
+            'user' => new LeaderResource($users[me])
         ]);
     }
     public function score(Request $request) {
