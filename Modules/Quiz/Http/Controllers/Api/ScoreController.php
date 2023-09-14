@@ -26,13 +26,13 @@ class ScoreController extends CoreController
             ->sortByDesc(function ($user) {
                 return $user['score'];
             })->values();
-        $me =$users->search(function($user) use ($request) {
+        $me = $users->search(function($user) use ($request) {
             return $user->id === $request->user()->id;
         });
         return $this->successResponse("Got leaderboard", [
             'leaderboard' => LeaderResource::collection($users),
             'position' =>  $me + 1,
-            'user' => new LeaderResource($users[me])
+            'user' => new LeaderResource($users[$me])
         ]);
     }
     public function score(Request $request) {
