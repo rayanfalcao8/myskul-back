@@ -58,6 +58,10 @@ return [
 
     'asset_url' => env('ASSET_URL'),
 
+    'maviance_url' => env('MAVIANCE_URL', 'https://s3p.smobilpay.staging.maviance.info/v2'),
+    'maviance_token' => env('MAVIANCE_TOKEN', 'AC50C982-D8E2-47BA-C976-93651F625C9F'),
+    'maviance_secret' => env('MAVIANCE_SECRET', 'ABFC8FAB-357C-3BA5-5A79-2DD9A0B6CEFA'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone
