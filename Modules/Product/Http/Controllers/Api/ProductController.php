@@ -5,36 +5,30 @@ namespace Modules\Product\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Modules\Core\Http\Controllers\Api\CoreController;
+use Modules\Product\Entities\Product;
+use Modules\Product\Transformers\ProductResource;
 
 class ProductController extends CoreController
 {
-    /**
-     * Display a listing of the resource.
-     * @return Response
-     */
     public function index()
     {
-        //
+        return $this->successResponse('Get products', [
+            'products' => ProductResource::collection(Product::all())
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Response
-     */
     public function store(Request $request)
     {
-        //
+        return $this->successResponse('Purchase product', [
+            'products' => ProductResource::collection(Product::all())
+        ]);
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Response
-     */
     public function show($id)
     {
-        //
+        return $this->successResponse('Get product', [
+            'product' => new ProductResource(Product::find($id))
+        ]);
     }
 
     /**
