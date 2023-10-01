@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Quiz\Filters\Filters;
+namespace Modules\Quiz\Filters;
 
 use Modules\Core\Filters\AbstractFilters;
 use Modules\Quiz\Filters\NameFilter;
