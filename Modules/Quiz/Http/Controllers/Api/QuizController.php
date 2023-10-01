@@ -5,6 +5,7 @@ namespace Modules\Quiz\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use Modules\Core\Http\Controllers\Api\CoreController;
 use Modules\Quiz\Entities\Theme;
+use Modules\Quiz\Entities\UserAnswer;
 use Modules\Quiz\Entities\UserTheme;
 use Modules\Quiz\Transformers\AnsweredQuestionResource;
 use Modules\Quiz\Transformers\QuizResource;
@@ -37,14 +38,40 @@ class QuizController extends CoreController
 
     public function store(Request $request)
     {
-        $data = array_filter([
-            'done' => true,
-            'score' => $request->score,
-            'theme_id' => $request->theme_id,
-            'user_id' => $request->user()->id,
-        ]);
+        if($request->first){
+            $data = array_filter([
+                'done' => true,
+                'score' => $request->score,
+                'theme_id' => $request->theme_id,
+                'user_id' => $request->user()->id,
+            ]);
+            $quiz = UserTheme::create($data);
 
-        $quiz = UserTheme::create($data);
+            foreach ($request->answers as $answer) {
+
+                UserAnswer::create([
+                    'ok' => $answer['status'],
+                    'question_id' => $answer['question_id'],
+                    'user_id' => $request->user()->id,
+                ]);
+            }
+        } else {
+            $data = array_filter([
+                'score' => $request->score,
+            ]);
+
+            $quiz = UserTheme::query()->where(['theme_id' => $request->theme_id,
+                'user_id' => $request->user()->id])->first();
+
+            $quiz->update($data);
+
+            foreach ($request->answers as $answer) {
+                UserAnswer::query()->where(['question_id' => $answer['question_id'],
+                    'user_id' => $request->user()->id])->update([
+                        'ok' => $answer['status'],
+                    ]);
+            }
+        }
 
         return $this->successResponse('User answered quiz', [
             'quiz' => new QuizResource($quiz)

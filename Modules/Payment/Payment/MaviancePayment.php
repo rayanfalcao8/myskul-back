@@ -13,6 +13,7 @@ use Maviance\S3PApiClient\Service\ConfirmApi;
 use Maviance\S3PApiClient\Service\InitiateApi;
 use Maviance\S3PApiClient\Service\MasterdataApi;
 use Maviance\S3PApiClient\Service\VerifyApi;
+use Modules\Payment\Http\Requests\InitPaymentRequest;
 
 class MaviancePayment
 {
@@ -43,20 +44,21 @@ class MaviancePayment
         }
     }
 
-    public static function getCashout() {
+    public static function getCashout($service) {
         $apiInstance = new MasterdataApi(self::$client, self::$config);
         try {
-            return $apiInstance->cashoutGet(self::$xApiVersion);
+            return $apiInstance->cashoutGet(self::$xApiVersion, $service);
         } catch (Exception $e) {
             echo 'Exception when calling MasterdataApi->cashoutGet: ', $e->getMessage(), PHP_EOL;
         }
     }
 
-    public static function initTransaction() {
+    public static function initTransaction(InitPaymentRequest $request) {
         $apiInstance = new InitiateApi(self::$client, self::$config);
+
         $body = new QuoteRequest([
-            'amount' => 300,
-            'payItemId' => "voluptate"
+            'amount' => $request->amount,
+            'payItemId' => $request->serviceId
         ]);
         try {
             return $apiInstance->quotestdPost(self::$xApiVersion, $body);
@@ -68,8 +70,6 @@ class MaviancePayment
     public static function checkStatus($trid) {
         $apiInstance = new VerifyApi(self::$client, self::$config);
 
-        $trid = "trid_example"; // string | custom external transaction reference provided during payment collection
-
         try {
             return $apiInstance->verifytxGet(self::$xApiVersion, null, $trid);
         } catch (Exception $e) {
@@ -77,9 +77,8 @@ class MaviancePayment
         }
     }
 
-    public static function completeTransaction() {
+    public static function completeTransaction(CollectionRequest $body) {
         $apiInstance = new ConfirmApi(self::$client, self::$config);
-        $body = new CollectionRequest();
 
         try {
             return $apiInstance->collectstdPost(self::$xApiVersion, $body);

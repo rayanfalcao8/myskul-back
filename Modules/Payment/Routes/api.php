@@ -19,9 +19,8 @@ $api = app('Dingo\Api\Routing\Router');
 $api->version('v1', ['middleware' => 'auth:sanctum'], function (Router $api) {
 
     $api->group(['prefix' => 'payment'], function (Router $api) {
-        $api->get('/', [PaymentController::class, 'index']);
+        $api->post('/', [PaymentController::class, 'index']);
         $api->get('/methods', [PaymentController::class, 'getMethods']);
         $api->get('/status/{trid}', [PaymentController::class, 'checkStatus']);
-        $api->get('/complete', [PaymentController::class, 'completePayment']);
     });
 });
