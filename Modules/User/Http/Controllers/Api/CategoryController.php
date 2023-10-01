@@ -10,10 +10,10 @@ use Modules\User\Transformers\CategoryResource;
 
 class CategoryController extends CoreController
 {
-    public function index()
+    public function index(Request $request)
     {
         return $this->successResponse('Got categories successfully', [
-            'categories' => CategoryResource::collection(Category::paginate())
+            'categories' => CategoryResource::collection(Category::query()->filter($request)->paginate($request->query("per_page", 10)))
         ]);
     }
     public function show($id)

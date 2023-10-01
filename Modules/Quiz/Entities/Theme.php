@@ -2,12 +2,16 @@
 
 namespace Modules\Quiz\Entities;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+use Modules\Quiz\Filters\Filters\QuizFilters;
 use Modules\User\Entities\Category;
 use Modules\User\Entities\Level;
 use Modules\User\Entities\Speciality;
 use Modules\User\Entities\User;
+use Modules\User\Filters\UserFilters;
 
 class Theme extends Model
 {
@@ -52,5 +56,10 @@ class Theme extends Model
     protected static function newFactory()
     {
         return \Modules\User\Database\factories\ThemeFactory::new();
+    }
+
+    public function scopeFilter(Builder $query, Request $request, array $filters = []): Builder
+    {
+        return (new QuizFilters($request))->add($filters)->filter($query);
     }
 }
