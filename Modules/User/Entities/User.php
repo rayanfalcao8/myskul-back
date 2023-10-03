@@ -110,11 +110,39 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function answers() {
         return $this->belongsToMany(Question::class, 'user_answers', 'user_id', 'question_id')
-            ->withPivot('ok');
+            ->withPivot(['ok', 'created_at', 'updated_at']);
     }
 
-    public function score($theme_id = null): int {
+    public function score($theme_id = null, $period = null): int {
         $score = 0;
+        if($period !== null) {
+            switch ($period) {
+                case 'day': {
+                    $this->answers->each(function ($answer) use (&$score) {
+                        if($answer->pivot->updated_at != null && date_format($answer->pivot->updated_at, 'Y-m-d') == today()->format('Y-m-d') && $answer->pivot->ok == 1){
+                            $score += $answer->points;
+                        }
+                    });
+                    return $score;
+                }
+                case 'month': {
+                    $this->answers->each(function ($answer) use (&$score) {
+                        if($answer->pivot->updated_at != null && date_format($answer->pivot->updated_at, 'Y-m') == today()->format('Y-m') && $answer->pivot->ok == 1){
+                            $score += $answer->points;
+                        }
+                    });
+                    return $score;
+                }
+                default : {
+                    $this->answers->each(function ($answer) use (&$score) {
+                        if($answer->pivot->ok == 1){
+                            $score += $answer->points;
+                        }
+                    });
+                    return $score;
+                }
+            }
+        }
         if($theme_id !== null) {
             if(!$this->answers->contains('theme_id', $theme_id)){
                 return $score;

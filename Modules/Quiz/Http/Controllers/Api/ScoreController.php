@@ -19,8 +19,8 @@ class ScoreController extends CoreController
                 return $query->where('speciality_id', $request->speciality_id);
             })
             ->get()
-            ->map(function ($user) {
-                $user->score = $user->score();
+            ->map(function ($user) use ($request) {
+                $user->score = $user->score(isset($request->theme_id) ? $request->theme_id : null, $request->period);
                 return $user;
             })
             ->sortByDesc(function ($user) {
@@ -32,7 +32,7 @@ class ScoreController extends CoreController
         return $this->successResponse("Got leaderboard", [
             'leaderboard' => LeaderResource::collection($users),
             'position' =>  $me + 1,
-            'user' => new LeaderResource($users[$me])
+            'user' => new LeaderResource($users[$me]),
         ]);
     }
     public function score(Request $request) {
