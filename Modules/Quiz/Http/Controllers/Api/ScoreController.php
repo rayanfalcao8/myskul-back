@@ -36,9 +36,18 @@ class ScoreController extends CoreController
         ]);
     }
     public function score(Request $request) {
+        $questions = $request->user()->answers;
         return $this->successResponse("Got user score", [
-            'score' =>$request->user()
-                ->score(isset($request->theme_id) ? $request->theme_id : null)
+            'score' => $request->user()->score(isset($request->theme_id) ? $request->theme_id : null),
+            'quiz' => $request->user()->themes->count(),
+            'questions' => $questions->count(),
+            'correct' => $questions->filter(function ($item) {
+                return $item->pivot->ok == true;
+            })->count(),
+            'wrong' => $questions->filter(function ($item) {
+                return $item->pivot->ok == false;
+            })->count()
+
         ]);
     }
 }
