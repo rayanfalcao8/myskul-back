@@ -45,6 +45,7 @@ class MaviancePayment
     }
 
     public static function getCashout($service) {
+        dd("hjk");
         $apiInstance = new MasterdataApi(self::$client, self::$config);
         try {
             return $apiInstance->cashoutGet(self::$xApiVersion, $service);
