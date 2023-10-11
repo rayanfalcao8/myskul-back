@@ -38,7 +38,6 @@ class PaymentController extends CoreController
             'createdAt' => now(),
             'status' => 2,
         ]);
-
         return $this->successResponse("Data", [
             "res" => $data->container
         ]);

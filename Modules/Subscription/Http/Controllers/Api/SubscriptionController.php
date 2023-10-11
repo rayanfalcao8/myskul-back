@@ -44,8 +44,10 @@ class SubscriptionController extends CoreController
             ])
         ]);
         return $this->successResponse("Created subscription successfully", [
+<<<<<<< HEAD
             'subscription' => $pay,
-            'payment' => json_decode($payment)->data->res
+=======
+            'subscription' => new SubscriptionResource($subscription),
         ]);
     }
 
