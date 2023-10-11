@@ -44,10 +44,7 @@ class SubscriptionController extends CoreController
             ])
         ]);
         return $this->successResponse("Created subscription successfully", [
-<<<<<<< HEAD
             'subscription' => $pay,
-=======
-            'subscription' => new SubscriptionResource($subscription),
         ]);
     }
 
