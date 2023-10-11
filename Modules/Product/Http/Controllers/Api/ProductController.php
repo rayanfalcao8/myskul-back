@@ -5,6 +5,9 @@ namespace Modules\Product\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Modules\Core\Http\Controllers\Api\CoreController;
+use Modules\Payment\Entities\Payment;
+use Modules\Payment\Http\Controllers\Api\PaymentController;
+use Modules\Payment\Http\Requests\InitPaymentRequest;
 use Modules\Product\Entities\Product;
 use Modules\Product\Transformers\ProductResource;
 
@@ -17,10 +20,33 @@ class ProductController extends CoreController
         ]);
     }
 
-    public function store(Request $request)
+    public function userProducts(Request $request)
     {
-        return $this->successResponse('Purchase product', [
-            'products' => ProductResource::collection(Product::all())
+        return $this->successResponse('Get products', [
+            'products' => ProductResource::collection($request->user()->products)
+        ]);
+    }
+
+
+    public function store(InitPaymentRequest $request)
+    {
+        $payment = (new PaymentController)->index($request)->data;
+        $pay = Payment::where('transactionID', json_decode($payment)->data->res->trid)->first();
+
+        $pay->update([
+            'metadata' => array_filter([
+                'user_id' => $request->user()->id,
+                'product_id' => $request->product_id,
+                'transactionID' => json_decode($payment)->data->res->trid,
+                'contactedPhoneNumber' => $request->phoneNumber ?? $request->user()->phoneNumber,
+                'createdAt' => now(),
+                'type' => 'PRODUCT'
+            ])
+        ]);
+
+        return $this->successResponse("Created subscription successfully", [
+            'product' => $pay,
+            'payment' => json_decode($payment)->data->res
         ]);
     }
 

@@ -19,6 +19,7 @@ $api = app('Dingo\Api\Routing\Router');
 $api->version('v1', ['middleware' => 'auth:sanctum'], function (Router $api) {
     $api->group(['prefix' => 'products'], function (Router $api) {
         $api->get('/', [ProductController::class, 'index']);
+        $api->get('/user', [ProductController::class, 'userProducts']);
         $api->get('/{id}', [ProductController::class, 'show']);
         $api->post('/', [ProductController::class, 'store']);
     });

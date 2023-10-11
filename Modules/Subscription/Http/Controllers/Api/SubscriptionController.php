@@ -41,6 +41,7 @@ class SubscriptionController extends CoreController
                 'speciality_id' => $request->user()->speciality_id,
                 'createdAt' => now(),
                 'expireAt' => now()->addMonths($exp),
+                'type' => "SUBSCRIPTION"
             ])
         ]);
 

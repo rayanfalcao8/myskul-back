@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
+use Modules\Product\Entities\Product;
+use Modules\Product\Entities\UserProduct;
 use Modules\Quiz\Entities\Question;
 use Modules\Quiz\Entities\Theme;
 use Modules\Quiz\Entities\UserTheme;
@@ -106,6 +108,10 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function subscriptions() {
         return $this->hasMany(UserAbonnement::class);
+    }
+
+    public function products() {
+        return $this->belongsToMany(Product::class, 'user_products', 'user_id', 'product_id');
     }
 
     public function answers() {

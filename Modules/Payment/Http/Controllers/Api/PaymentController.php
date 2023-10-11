@@ -3,12 +3,14 @@
 namespace Modules\Payment\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Maviance\S3PApiClient\Model\CollectionRequest;
 use Maviance\S3PApiClient\ObjectSerializer;
 use Modules\Core\Http\Controllers\Api\CoreController;
 use Modules\Payment\Entities\Payment;
 use Modules\Payment\Http\Requests\InitPaymentRequest;
 use Modules\Payment\Payment\MaviancePayment;
+use Modules\Product\Entities\UserProduct;
 use Modules\Subscription\Entities\UserAbonnement;
 use Modules\Subscription\Transformers\SubscriptionResource;
 
@@ -81,19 +83,32 @@ class PaymentController extends CoreController
         switch ($request->status) {
             case "SUCCESS": {
                 $payment = Payment::where('transactionID', $request->trid)->first();
-                $subscription = UserAbonnement::create(
-                array_filter([
-                    'user_id' => $payment->metadata['user_id'],
-                    'domain_id' => $payment->metadata['domain_id'],
-                    'abonnementType_id' => $payment->metadata['abonnementType_id'],
-                    'transactionID' => $payment->metadata['transactionID'],
-                    'buyerPhoneNumber' => $payment->metadata['buyerPhoneNumber'],
-                    'level_id' => $payment->metadata['level_id'],
-                    'speciality_id' => $payment->metadata['speciality_id'],
-                    'createdAt' => $payment->metadata['createdAt'],
-                    'expireAt' => $payment->metadata['expireAt'],
-                ])
-            );
+                if ($payment->metadata['type'] == 'SUBSCRIPTION') {
+                    $subscription = UserAbonnement::create(
+                        array_filter([
+                            'user_id' => $payment->metadata['user_id'],
+                            'domain_id' => $payment->metadata['domain_id'],
+                            'abonnementType_id' => $payment->metadata['abonnementType_id'],
+                            'transactionID' => $payment->metadata['transactionID'],
+                            'buyerPhoneNumber' => $payment->metadata['buyerPhoneNumber'],
+                            'level_id' => $payment->metadata['level_id'],
+                            'speciality_id' => $payment->metadata['speciality_id'],
+                            'createdAt' => $payment->metadata['createdAt'],
+                            'expireAt' => $payment->metadata['expireAt'],
+                        ])
+                    );
+                }
+                if ($payment->metadata['type'] == 'PRODUCT') {
+                    $subscription = UserProduct::create(
+                        array_filter([
+                            'user_id' => $payment->metadata['user_id'],
+                            'product_id' => $payment->metadata['product_id'],
+                            'contactedPhoneNumber' => $payment->metadata['contactedPhoneNumber'],
+                            'createdAt' => $payment->metadata['createdAt'],
+                        ])
+                    );
+                }
+
             };
             break;
 //            case "ERROR": {
