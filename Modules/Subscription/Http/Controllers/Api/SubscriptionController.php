@@ -43,6 +43,7 @@ class SubscriptionController extends CoreController
                 'expireAt' => now()->addMonths($exp),
             ])
         ]);
+
         return $this->successResponse("Created subscription successfully", [
             'subscription' => $pay,
         ]);
