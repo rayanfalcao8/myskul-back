@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Maviance\S3PApiClient\Model\CollectionRequest;
 use Modules\Core\Http\Controllers\Api\CoreController;
+use Modules\Payment\Entities\Payment;
 use Modules\Payment\Http\Controllers\Api\PaymentController;
 use Modules\Payment\Http\Requests\InitPaymentRequest;
 use Modules\Payment\Payment\MaviancePayment;
@@ -27,8 +28,10 @@ class SubscriptionController extends CoreController
         $exp = AbonnementType::find($request->type)->duration;
 
         $payment = (new PaymentController)->index($request)->data;
-        $subscription = UserAbonnement::create(
-            array_filter([
+        $pay = Payment::where('transactionID', json_decode($payment)->data->res->trid)->first();
+
+        $pay->update([
+            'metadata' => array_filter([
                 'user_id' => $request->user()->id,
                 'domain_id' => $request->domain_id,
                 'abonnementType_id' => $request->type,
@@ -39,10 +42,10 @@ class SubscriptionController extends CoreController
                 'createdAt' => now(),
                 'expireAt' => now()->addMonths($exp),
             ])
-        );
+        ]);
         return $this->successResponse("Created subscription successfully", [
-            'subscription' => new SubscriptionResource($subscription),
-            'payment' => $payment
+            'subscription' => $pay,
+            'payment' => json_decode($payment)->data->res
         ]);
     }
 

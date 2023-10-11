@@ -6,8 +6,11 @@ use Illuminate\Http\Request;
 use Maviance\S3PApiClient\Model\CollectionRequest;
 use Maviance\S3PApiClient\ObjectSerializer;
 use Modules\Core\Http\Controllers\Api\CoreController;
+use Modules\Payment\Entities\Payment;
 use Modules\Payment\Http\Requests\InitPaymentRequest;
 use Modules\Payment\Payment\MaviancePayment;
+use Modules\Subscription\Entities\UserAbonnement;
+use Modules\Subscription\Transformers\SubscriptionResource;
 
 class PaymentController extends CoreController
 {
@@ -25,6 +28,16 @@ class PaymentController extends CoreController
             'trid' => rand(00000000, 99999999)
         ]);
         $data = $maviance->completeTransaction($body);
+        Payment::create([
+            'transactionID' => $body->getTrid(),
+            'transactionType' => "CASHOUT",
+            'phoneNumber' => $body->getServiceNumber(),
+            'montant' => $request->amount,
+            'service_sigle' => $data->getPayItemId(),
+            'user_id' => $request->user()->id,
+            'createdAt' => now(),
+            'status' => 2,
+        ]);
 
         return $this->successResponse("Data", [
             "res" => $data->container
@@ -65,13 +78,32 @@ class PaymentController extends CoreController
     }
 
 
-    public function callBack($trid){
-        $maviance = new MaviancePayment();
-        $data = ObjectSerializer::serializeCollection($maviance->checkStatus($trid),'multi');
-        $string = str_replace('"""', '', $data);
-        $string = str_replace("\n", '', $string);
-        return $this->successResponse("Payment methods", [
-            "res" => json_decode("[$string]")
+    public function callBack(Request $request){
+        switch ($request->status) {
+            case "SUCCESS": {
+                $payment = Payment::where('transactionID', $request->trid)->first();
+                $subscription = UserAbonnement::create(
+                array_filter([
+                    'user_id' => $payment->metadata['user_id'],
+                    'domain_id' => $payment->metadata['domain_id'],
+                    'abonnementType_id' => $payment->metadata['abonnementType_id'],
+                    'transactionID' => $payment->metadata['transactionID'],
+                    'buyerPhoneNumber' => $payment->metadata['buyerPhoneNumber'],
+                    'level_id' => $payment->metadata['level_id'],
+                    'speciality_id' => $payment->metadata['speciality_id'],
+                    'createdAt' => $payment->metadata['createdAt'],
+                    'expireAt' => $payment->metadata['expireAt'],
+                ])
+            );
+            };
+            break;
+//            case "ERROR": {
+//
+//            };
+//            break;
+        }
+        return $this->successResponse("Callback", [
+            "res" => new SubscriptionResource($subscription)
         ]);
     }
 }

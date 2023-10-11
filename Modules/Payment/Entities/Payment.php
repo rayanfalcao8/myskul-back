@@ -18,6 +18,11 @@ class Payment extends Model
         'user_id',
         'createdAt',
         'status',
+        'metadata'
+    ];
+
+    protected $casts = [
+        'metadata' => 'array'
     ];
     
     protected static function newFactory()
