@@ -18,6 +18,7 @@ class UserAbonnement extends Model
         'transactionID',
         'buyerPhoneNumber',
         'level_id',
+        'domain_id',
         'speciality_id',
         'createdAt',
         'expireAt'

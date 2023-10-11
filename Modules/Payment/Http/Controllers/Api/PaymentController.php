@@ -51,4 +51,15 @@ class PaymentController extends CoreController
             "res" => json_decode("[$string]")
         ]);
     }
+
+
+    public function callBack($trid){
+        $maviance = new MaviancePayment();
+        $data = ObjectSerializer::serializeCollection($maviance->checkStatus($trid),'multi');
+        $string = str_replace('"""', '', $data);
+        $string = str_replace("\n", '', $string);
+        return $this->successResponse("Payment methods", [
+            "res" => json_decode("[$string]")
+        ]);
+    }
 }
