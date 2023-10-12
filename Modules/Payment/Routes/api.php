@@ -16,11 +16,10 @@ use Modules\Payment\Http\Controllers\Api\PaymentController;
 
 $api = app('Dingo\Api\Routing\Router');
 
-$api->version('v1', ['middleware' => 'auth:sanctum'], function (Router $api) {
-
-    $api->group(['prefix' => 'payment'], function (Router $api) {
+$api->version('v1', function (Router $api) {
+    $api->post('/payment/callback', [PaymentController::class, 'callBack']);
+    $api->group(['prefix' => 'payment', 'middleware' => 'auth:sanctum'],function (Router $api) {
         $api->post('/', [PaymentController::class, 'index']);
-        $api->post('/callback', [PaymentController::class, 'callBack']);
         $api->get('/methods', [PaymentController::class, 'getMethods']);
         $api->get('/status/{trid}', [PaymentController::class, 'checkStatus']);
     });
