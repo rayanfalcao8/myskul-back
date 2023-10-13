@@ -22,7 +22,7 @@ class ProductController extends CoreController
 
     public function userProducts(Request $request)
     {
-        return $this->successResponse('Get products', [
+        return $this->successResponse('Get user products', [
             'products' => ProductResource::collection($request->user()->products)
         ]);
     }
