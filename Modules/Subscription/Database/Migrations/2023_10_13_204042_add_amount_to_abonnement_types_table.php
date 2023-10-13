@@ -14,7 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('abonnement_types', function (Blueprint $table) {
-            $table->integer('amount')->nullable();
+            $table->integer('amount_prepa')->nullable();
+            $table->integer('amount_bord')->nullable();
         });
     }
 
@@ -26,7 +27,8 @@ return new class extends Migration
     public function down()
     {
         Schema::table('abonnement_types', function (Blueprint $table) {
-            $table->dropColumn('amount');
+            $table->dropColumn('amount_prepa');
+            $table->dropColumn('amount_bord');
         });
     }
 };
