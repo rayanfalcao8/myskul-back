@@ -2,6 +2,7 @@
 
 namespace Modules\Quiz\Http\Controllers\Api;
 
+use App\Notifications\SendPushNotification;
 use Illuminate\Http\Request;
 use Modules\Core\Http\Controllers\Api\CoreController;
 use Modules\Quiz\Entities\Theme;
@@ -10,6 +11,7 @@ use Modules\Quiz\Entities\UserTheme;
 use Modules\Quiz\Transformers\AnsweredQuestionResource;
 use Modules\Quiz\Transformers\QuizResource;
 use Modules\Quiz\Transformers\QuizzesResource;
+use Modules\User\Entities\User;
 
 class QuizController extends CoreController
 {
@@ -29,6 +31,7 @@ class QuizController extends CoreController
 
     public function getByCategory(Request $request, $id)
     {
+        auth()->user()->notify(new SendPushNotification("NOTIF","TEST NOTIF",User::whereNotNull('fcm_token')->pluck('fcm_token')->toArray()));
         return $this->successResponse("Got category quiz list", [
             'quizzes' => QuizzesResource::collection(
                 Theme::with('quiz','questions','speciality','level','category')->where('category_id', $id)->filter($request)->get()
