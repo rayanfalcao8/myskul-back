@@ -32,6 +32,7 @@ class AuthenticateUserResource extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'profile_image' => $this->avatarURL,
+            'fcm_token' => $this->fcm_token,
             'level' => $this->level,
             'speciality' => $this->speciality,
             'school' => $this->school,

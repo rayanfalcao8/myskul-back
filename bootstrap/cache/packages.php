@@ -53,6 +53,13 @@
       'Agent' => 'Jenssegers\\Agent\\Facades\\Agent',
     ),
   ),
+  'kutia-software-company/larafirebase' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Kutia\\Larafirebase\\Providers\\LarafirebaseServiceProvider',
+    ),
+  ),
   'laravel/passport' => 
   array (
     'providers' => 
