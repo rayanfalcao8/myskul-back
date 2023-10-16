@@ -2,7 +2,7 @@
 
 namespace Modules\User\Http\Controllers\Api;
 
-use Dingo\Api\Http\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Modules\Authentication\Transformers\AuthenticateUserResource;
 use Modules\Core\Http\Controllers\Api\CoreController;
@@ -129,10 +129,10 @@ class UserController extends CoreController
 
     public function updateToken(Request $request){
         try{
-            $request->user()->update(['fcm_token'=>$request->token]);
-            return response()->json([
-                'success'=>true
-            ]);
+            $id = $request->user()->id;
+            $user = User::findOrFail($id);
+            $user->update(['fcm_token' => $request->token]);
+            return $this->successResponse(__('User token updated successfully!'), ['user' => new AuthenticateUserResource($user)]);
         }catch(\Exception $e){
             report($e);
             return response()->json([
