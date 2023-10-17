@@ -6,5 +6,6 @@
     "Quiz": true,
     "Payment": true,
     "Subscription": true,
-    "Product": true
+    "Product": true,
+    "Notification": true
 }
