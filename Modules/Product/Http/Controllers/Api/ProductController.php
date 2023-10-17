@@ -30,14 +30,17 @@ class ProductController extends CoreController
 
     public function store(InitPaymentRequest $request)
     {
-        $payment = (new PaymentController)->index($request)->data;
-        $pay = Payment::where('transactionID', json_decode($payment)->data->res->trid)->first();
+        $payment = (new PaymentController)->index($request);
+//        if($payment->getStatusCode() == 404) {
+//            return $this->errorResponse($payment->original['message']);
+//        }
+        $pay = Payment::where('transactionID', json_decode($payment->data)->data->res->trid)->first();
 
         $pay->update([
             'metadata' => array_filter([
                 'user_id' => $request->user()->id,
                 'product_id' => $request->product_id,
-                'transactionID' => json_decode($payment)->data->res->trid,
+                'transactionID' => json_decode($payment->data)->data->res->trid,
                 'contactedPhoneNumber' => $request->phoneNumber ?? $request->user()->phoneNumber,
                 'createdAt' => now(),
                 'type' => 'PRODUCT'
@@ -46,7 +49,7 @@ class ProductController extends CoreController
 
         return $this->successResponse("Created subscription successfully", [
             'product' => $pay,
-            'payment' => json_decode($payment)->data->res
+            'payment' => json_decode($payment->data)->data->res
         ]);
     }
 

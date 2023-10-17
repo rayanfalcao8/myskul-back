@@ -40,7 +40,8 @@ class MaviancePayment
             print_r($result);
             return "";
         } catch (Exception $e) {
-            echo 'Exception when calling AccountApi->accountGet: ', $e->getMessage(), PHP_EOL;
+//            echo 'Exception when calling AccountApi->accountGet: ', $e->getMessage(), PHP_EOL;
+            return $e;
         }
     }
 
@@ -49,7 +50,8 @@ class MaviancePayment
         try {
             return $apiInstance->cashoutGet(self::$xApiVersion, $service);
         } catch (Exception $e) {
-            echo 'Exception when calling MasterdataApi->cashoutGet: ', $e->getMessage(), PHP_EOL;
+//            echo 'Exception when calling MasterdataApi->cashoutGet: ', $e->getMessage(), PHP_EOL;
+            return $e;
         }
     }
 
@@ -63,7 +65,8 @@ class MaviancePayment
         try {
             return $apiInstance->quotestdPost(self::$xApiVersion, $body);
         } catch (Exception $e) {
-            echo 'Exception when calling InitiateApi->quotestdPost: ', $e->getMessage(), PHP_EOL;
+//            echo 'Exception when calling InitiateApi->quotestdPost: ', $e->getMessage(), PHP_EOL;
+            return $e;
         }
     }
 
@@ -73,7 +76,8 @@ class MaviancePayment
         try {
             return $apiInstance->verifytxGet(self::$xApiVersion, null, $trid);
         } catch (Exception $e) {
-            echo 'Exception when calling VerifyApi->verifytxGet: ', $e->getMessage(), PHP_EOL;
+//            echo 'Exception when calling VerifyApi->verifytxGet: ', $e->getMessage(), PHP_EOL;
+            return $e;
         }
     }
 
@@ -83,7 +87,8 @@ class MaviancePayment
         try {
             return $apiInstance->collectstdPost(self::$xApiVersion, $body);
         } catch (Exception $e) {
-            echo 'Exception when calling ConfirmApi->collectstdPost: ', $e->getMessage(), PHP_EOL;
+//            echo 'Exception when calling ConfirmApi->collectstdPost: ', $e->getMessage(), PHP_EOL;
+            return $e;
         }
     }
 }

@@ -28,6 +28,10 @@ class SubscriptionController extends CoreController
         $exp = AbonnementType::find($request->type)->duration;
 
         $payment = (new PaymentController)->index($request)->data;
+
+//        if($payment->getStatusCode() == 404) {
+//            return $this->errorResponse($payment->original['message']);
+//        }
         $pay = Payment::where('transactionID', json_decode($payment)->data->res->trid)->first();
 
         $pay->update([

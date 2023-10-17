@@ -30,6 +30,14 @@ class PaymentController extends CoreController
             'trid' => rand(00000000, 99999999)
         ]);
         $data = $maviance->completeTransaction($body);
+//        dd($data);
+//        if($data->getCode() == 400) {
+//            switch (json_decode($data->responseBody)->respCode) {
+//                case 40302: return $this->errorResponse("Numero incorrecte");
+//                    break;
+//                default: return $this->errorResponse("Veuillez reessayer plutard");
+//            }
+//        }
         Payment::create([
             'transactionID' => $body->getTrid(),
             'transactionType' => "CASHOUT",
