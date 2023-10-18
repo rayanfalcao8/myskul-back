@@ -19,6 +19,7 @@ $api = app('Dingo\Api\Routing\Router');
 $api->version('v1', ['middleware' => 'auth:sanctum'], function (Router $api) {
     $api->group(['prefix' => 'notifications'], function (Router $api) {
         $api->get('/', [NotificationController::class, 'index']);
+        $api->get('/send', [NotificationController::class, 'send']);
         $api->get('/{id}', [NotificationController::class, 'show']);
         $api->post('/', [NotificationController::class, 'store']);
         $api->put('/{id}', [NotificationController::class, 'update']);

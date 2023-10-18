@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Maviance\S3PApiClient\Model\CollectionRequest;
 use Maviance\S3PApiClient\ObjectSerializer;
 use Modules\Core\Http\Controllers\Api\CoreController;
+use Modules\Notification\Services\FCMService;
 use Modules\Payment\Entities\Payment;
 use Modules\Payment\Http\Requests\InitPaymentRequest;
 use Modules\Payment\Payment\MaviancePayment;
@@ -116,12 +117,26 @@ class PaymentController extends CoreController
                         ])
                     );
                 }
-
+                FCMService::send(
+                    $request->user()->fcm_token,
+                    [
+                        'title' => 'Paiement',
+                        'body' => 'Votre transaction a ete effectuée avec succes',
+                        'image' => config('app.url')."/img/logo.png"
+                    ]
+                );
             };
             break;
-//            case "ERROR": {
-//
-//            };
+            case "ERROR": {
+                FCMService::send(
+                    $request->user()->fcm_token,
+                    [
+                        'title' => 'Paiement',
+                        'body' => 'Votre transaction a echouée veuillez reessayer',
+                        'image' => config('app.url')."/img/logo.png"
+                    ]
+                );
+            };
 //            break;
         }
         return $this->successResponse("Callback", [

@@ -2,10 +2,16 @@
 
 namespace Modules\Notification\Http\Controllers\Api;
 
+use App\Notifications\SendPushNotification;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
+use Kutia\Larafirebase\Services\Larafirebase;
+use Modules\Notification\Services\FCMService;
+use Illuminate\Support\Facades\Notification as N;
 use Modules\Core\Http\Controllers\Api\CoreController;
 use Modules\Notification\Entities\Notification;
+use Modules\User\Entities\User;
 
 class NotificationController extends CoreController
 {
@@ -64,5 +70,29 @@ class NotificationController extends CoreController
     public function updateAll($id)
     {
         //
+    }
+
+    public function send(Request $request)
+    {
+        try {
+            $response = FCMService::send(
+                    $request->user()->fcm_token,
+                    [
+                        'title' => 'your title',
+                        'body' => 'your body',
+                        'image' => config('app.url')."/img/logo.png"
+                    ]
+                );
+            if ($response->status() == 200) {
+                print_r($response->body());
+                print_r('Notification sent successfully');
+            } else {
+                print_r('Failed to send notification: ' . $response->getStatusCode());
+            }
+        } catch (\Exception $e) {
+            print_r('Failed to send notification: ' . $e->getMessage());
+        }
+
+        return response()->json(['message' => 'Notification sent']);
     }
 }

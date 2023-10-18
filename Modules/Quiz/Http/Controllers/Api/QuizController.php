@@ -31,7 +31,6 @@ class QuizController extends CoreController
 
     public function getByCategory(Request $request, $id)
     {
-        auth()->user()->notify(new SendPushNotification("NOTIF","TEST NOTIF",User::whereNotNull('fcm_token')->pluck('fcm_token')->toArray()));
         return $this->successResponse("Got category quiz list", [
             'quizzes' => QuizzesResource::collection(
                 Theme::with('quiz','questions','speciality','level','category')->where('category_id', $id)->filter($request)->get()
