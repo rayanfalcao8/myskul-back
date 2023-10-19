@@ -78,9 +78,10 @@ class NotificationController extends CoreController
             $response = FCMService::send(
                     $request->user()->fcm_token,
                     [
-                        'title' => 'your title',
-                        'body' => 'your body',
-                        'image' => config('app.url')."/img/logo.png"
+                        "groupe" => "group",
+                        "image" => "image",
+                        "nom" => '~ ',
+                        "message" => "message",
                     ]
                 );
             if ($response->status() == 200) {

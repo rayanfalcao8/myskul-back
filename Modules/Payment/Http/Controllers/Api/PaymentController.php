@@ -120,9 +120,10 @@ class PaymentController extends CoreController
                 FCMService::send(
                     $request->user()->fcm_token,
                     [
-                        'title' => 'Paiement',
-                        'body' => 'Votre transaction a ete effectuée avec succes',
-                        'image' => config('app.url')."/img/logo.png"
+                        "groupe" => "Paiement",
+                        "image" => config('app.url')."/img/logo.png",
+                        "nom" => 'Success',
+                        "message" => 'Votre transaction a ete effectuée avec succes',
                     ]
                 );
             };
@@ -131,9 +132,10 @@ class PaymentController extends CoreController
                 FCMService::send(
                     $request->user()->fcm_token,
                     [
-                        'title' => 'Paiement',
-                        'body' => 'Votre transaction a echouée veuillez reessayer',
-                        'image' => config('app.url')."/img/logo.png"
+                        "groupe" => "Paiement",
+                        "image" => config('app.url')."/img/logo.png",
+                        "nom" => 'Echec',
+                        "message" => 'Votre transaction a echouée veuillez reessayer',
                     ]
                 );
             };
