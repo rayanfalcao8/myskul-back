@@ -14,6 +14,7 @@ use Modules\Payment\Payment\MaviancePayment;
 use Modules\Product\Entities\UserProduct;
 use Modules\Subscription\Entities\UserAbonnement;
 use Modules\Subscription\Transformers\SubscriptionResource;
+use Modules\User\Entities\User;
 
 class PaymentController extends CoreController
 {
@@ -118,7 +119,7 @@ class PaymentController extends CoreController
                     );
                 }
                 FCMService::send(
-                    $request->user()->fcm_token,
+                    User::where('id', $payment->metadata['user_id'])->first()->fcm_token,
                     [
                         "groupe" => "Paiement",
                         "image" => config('app.url')."/img/logo.png",
@@ -129,8 +130,9 @@ class PaymentController extends CoreController
             };
             break;
             case "ERROR": {
+                $payment = Payment::where('transactionID', $request->trid)->first();
                 FCMService::send(
-                    $request->user()->fcm_token,
+                    User::where('id', $payment->metadata['user_id'])->first()->fcm_token,
                     [
                         "groupe" => "Paiement",
                         "image" => config('app.url')."/img/logo.png",
@@ -139,7 +141,7 @@ class PaymentController extends CoreController
                     ]
                 );
             };
-//            break;
+            break;
         }
         return $this->successResponse("Callback", [
             "res" => new SubscriptionResource($subscription)
