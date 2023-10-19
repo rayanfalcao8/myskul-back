@@ -144,7 +144,7 @@ class PaymentController extends CoreController
             break;
         }
         return $this->successResponse("Callback", [
-            "res" => new SubscriptionResource($subscription)
+            "res" => $payment
         ]);
     }
 }
