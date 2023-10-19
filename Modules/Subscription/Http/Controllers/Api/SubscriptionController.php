@@ -32,6 +32,7 @@ class SubscriptionController extends CoreController
 //        if($payment->getStatusCode() == 404) {
 //            return $this->errorResponse($payment->original['message']);
 //        }
+
         $pay = Payment::where('transactionID', json_decode($payment)->data->res->trid)->first();
 
         $pay->update([
@@ -41,8 +42,8 @@ class SubscriptionController extends CoreController
                 'abonnementType_id' => $request->type,
                 'transactionID' => json_decode($payment)->data->res->trid,
                 'buyerPhoneNumber' => $request->phoneNumber ?? $request->user()->phoneNumber,
-                'level_id' => $request->user()->level_id,
-                'speciality_id' => $request->user()->speciality_id,
+                'level_id' => $request->level_id,
+                'speciality_id' => $request->speciality_id,
                 'createdAt' => now(),
                 'expireAt' => now()->addMonths($exp),
                 'type' => "SUBSCRIPTION"
