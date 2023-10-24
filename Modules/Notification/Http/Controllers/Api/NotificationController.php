@@ -18,7 +18,7 @@ class NotificationController extends CoreController
     public function index(Request $request)
     {
         return $this->successResponse("User's notifications", [
-            'notifications' => Notification::where('user_id', $request->user()->id)->latest()
+            'notifications' => Notification::where('user_id', $request->user()->id)->latest()->get()
         ]);
     }
 

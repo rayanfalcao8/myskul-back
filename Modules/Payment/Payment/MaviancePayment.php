@@ -50,7 +50,7 @@ class MaviancePayment
         try {
             return $apiInstance->cashoutGet(self::$xApiVersion, $service);
         } catch (Exception $e) {
-//            echo 'Exception when calling MasterdataApi->cashoutGet: ', $e->getMessage(), PHP_EOL;
+            echo 'Exception when calling MasterdataApi->cashoutGet: ', $e->getMessage(), PHP_EOL;
             return $e;
         }
     }
@@ -65,7 +65,7 @@ class MaviancePayment
         try {
             return $apiInstance->quotestdPost(self::$xApiVersion, $body);
         } catch (Exception $e) {
-//            echo 'Exception when calling InitiateApi->quotestdPost: ', $e->getMessage(), PHP_EOL;
+            echo 'Exception when calling InitiateApi->quotestdPost: ', $e->getMessage(), PHP_EOL;
             return $e;
         }
     }

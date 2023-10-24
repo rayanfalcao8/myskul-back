@@ -20,7 +20,7 @@ class Notification extends Model
         'user_id'
     ];
     public function user() {
-        $this->belongsTo(User::class);
+        $this->belongsTo(User::class, 'user_id', 'id');
     }
     protected static function newFactory()
     {
