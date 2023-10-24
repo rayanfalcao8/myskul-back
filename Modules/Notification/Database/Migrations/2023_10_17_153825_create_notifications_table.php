@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->boolean('isRead')->default(false);
             $table->dateTime('createdAt')->nullable();
-            $table->dateTime('user_id')->nullable();
+            $table->integer('user_id')->nullable();
 
             $table->timestamps();
         });

@@ -22,7 +22,7 @@ $api->version('v1', ['middleware' => 'auth:sanctum'], function (Router $api) {
         $api->get('/send', [NotificationController::class, 'send']);
         $api->get('/{id}', [NotificationController::class, 'show']);
         $api->post('/', [NotificationController::class, 'store']);
+        $api->put('/read', [NotificationController::class, 'updateAll']);
         $api->put('/{id}', [NotificationController::class, 'update']);
-        $api->put('/', [NotificationController::class, 'updateAll']);
     });
 });

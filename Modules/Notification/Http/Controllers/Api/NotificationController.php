@@ -67,9 +67,13 @@ class NotificationController extends CoreController
         ]);
     }
 
-    public function updateAll($id)
+    public function updateAll(Request $request)
     {
-        //
+        Notification::query()->where('user_id', $request->user()->id)->update(['isRead', true]);
+
+        return $this->successResponse("User's notifications read", [
+            'notifications' => Notification::where('user_id', $request->user()->id)->latest()->get()
+        ]);
     }
 
     public function send(Request $request)
