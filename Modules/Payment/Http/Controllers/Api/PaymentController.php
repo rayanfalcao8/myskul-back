@@ -144,7 +144,7 @@ class PaymentController extends CoreController
                     [
                         "type" => "Paiement",
                         "image" => config('app.url')."/img/logo.png",
-                        "title" => 'Paiement Echec',
+                        "titre" => 'Paiement Echec',
                         "contenu" => 'Votre transaction a echouée veuillez reessayer',
                     ]
                 );
