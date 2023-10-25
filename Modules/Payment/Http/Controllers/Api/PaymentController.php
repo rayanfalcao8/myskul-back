@@ -121,7 +121,7 @@ class PaymentController extends CoreController
                 FCMService::send(
                     User::where('id', $payment->metadata['user_id'])->first()->fcm_token,
                     [
-                        "groupe" => "Paiement",
+                        "type" => "Paiement",
                         "image" => config('app.url')."/img/logo.png",
                         "titre" => 'Paiement Succes',
                         "contenu" => 'Votre transaction a ete effectuée avec succes',
@@ -134,7 +134,7 @@ class PaymentController extends CoreController
                 FCMService::send(
                     User::where('id', $payment->metadata['user_id'])->first()->fcm_token,
                     [
-                        "groupe" => "Paiement",
+                        "type" => "Paiement",
                         "image" => config('app.url')."/img/logo.png",
                         "title" => 'Paiement Echec',
                         "contenu" => 'Votre transaction a echouée veuillez reessayer',

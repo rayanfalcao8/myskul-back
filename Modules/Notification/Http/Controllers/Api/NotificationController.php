@@ -82,10 +82,10 @@ class NotificationController extends CoreController
             $response = FCMService::send(
                     $request->user()->fcm_token,
                     [
-                        "groupe" => "group",
-                        "image" => "image",
-                        "nom" => '~ ',
-                        "message" => "message",
+                        "type" => "Paiement",
+                        "image" => config('app.url')."/img/logo.png",
+                        "titre" => 'Paiement Echec',
+                        "contenu" => 'Votre transaction a echouée veuillez reessayer',
                     ]
                 );
             if ($response->status() == 200) {
