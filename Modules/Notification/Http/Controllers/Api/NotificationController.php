@@ -89,7 +89,14 @@ class NotificationController extends CoreController
                     ]
                 );
             if ($response->status() == 200) {
-                print_r($response->body());
+                print_r(
+                    [
+                        $request->user()->fcm_token,
+                        "type" => "Paiement",
+                        "image" => config('app.url')."/img/logo.png",
+                        "titre" => 'Paiement Echec',
+                        "contenu" => 'Votre transaction a echouée veuillez reessayer',
+                    ]);
                 print_r('Notification sent successfully');
             } else {
                 print_r('Failed to send notification: ' . $response->getStatusCode());

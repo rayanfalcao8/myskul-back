@@ -63,11 +63,19 @@ class PaymentController extends CoreController
         $res = json_decode("[$string]");
         foreach ( $res as $method) {
             switch ($method->merchant) {
-                case "MTNMOMO": $method->regex = "^(237)?(?!650110360|650073267|650064175)((650|651|652|653|654|680|681|682|683|684|685|686|687|688|689)[0-9]{6}$|(67[0-9]{7})$)";
+                case "CMMTNMOMOCC":
+                    {
+                        $method->displayName = "MTN";
+                        $method->regex = "^(237)?(?!650110360|650073267|650064175)((650|651|652|653|654|680|681|682|683|684|685|686|687|688|689)[0-9]{6}$|(67[0-9]{7})$)";
+                    };
                     break;
                 case "EUCASHOUT": $method->regex = "^\\+?[1-9]\\d{1,14}$";
                     break;
-                case "CMORANGEOM": $method->regex = "^(237)?((655|656|657|658|659)[0-9]{6}$|(69[0-9]{7})$)";
+                case "CMORANGEOMCC":
+                    {
+                        $method->displayName = "ORANGE";
+                        $method->regex = "^(237)?((655|656|657|658|659)[0-9]{6}$|(69[0-9]{7})$)";
+                    };
                     break;
                 case "CMYOOMEEMONEY": $method->regex = "^(237)?(24)[0-9]{7}$";
                     break;
