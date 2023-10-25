@@ -124,7 +124,7 @@ class PaymentController extends CoreController
                         "groupe" => "Paiement",
                         "image" => config('app.url')."/img/logo.png",
                         "titre" => 'Paiement Succes',
-                        "Contenu" => 'Votre transaction a ete effectuée avec succes',
+                        "contenu" => 'Votre transaction a ete effectuée avec succes',
                     ]
                 );
             };
@@ -136,8 +136,8 @@ class PaymentController extends CoreController
                     [
                         "groupe" => "Paiement",
                         "image" => config('app.url')."/img/logo.png",
-                        "nom" => 'Paiement Echec',
-                        "message" => 'Votre transaction a echouée veuillez reessayer',
+                        "title" => 'Paiement Echec',
+                        "contenu" => 'Votre transaction a echouée veuillez reessayer',
                     ]
                 );
             };
