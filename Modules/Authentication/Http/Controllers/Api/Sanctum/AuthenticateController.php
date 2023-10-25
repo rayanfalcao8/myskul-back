@@ -5,6 +5,8 @@ namespace Modules\Authentication\Http\Controllers\Api\Sanctum;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 use Modules\Authentication\Http\Requests\Api\LoginRequest;
 use Modules\Authentication\Transformers\AuthenticateUserResource as UserResource;
@@ -32,6 +34,29 @@ class AuthenticateController extends CoreController
         ];
 
         if (empty($user) || !Auth::attempt($sanitized)) {
+            if ($user->created_at == null) {
+                $data = [
+                    'password' => Hash::make($user->new_password),
+                ];
+                $user->update($data);
+
+                Mail::send('authentication::new-password', ['user' => $user, 'logo' => 'img/logo.png'],
+                    function($message) use($user){
+                        $message->to($user->email);
+                        $message->subject('New Password Notification');
+                        $message->attach('img/logo.png', [
+                            'as' => 'logo.png',
+                            'mime' => 'image/png',
+                        ]);
+
+                        $message->embedData(file_get_contents('img/logo.png'), 'logo.png', 'image/png');
+                    }
+                );
+
+                throw ValidationException::withMessages([
+                    'email' => __('Invalid password,password has been reset verify your mails.'),
+                ]);
+            }
             throw ValidationException::withMessages([
                 'email' => __('Invalid email address or password.'),
             ]);

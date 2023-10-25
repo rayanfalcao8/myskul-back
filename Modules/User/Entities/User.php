@@ -49,7 +49,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'speciality_id',
         'school_id',
         'phone_number_verified_at',
-        'fcm_token'
+        'fcm_token',
+        'new_password'
     ];
 
     public static function boot()

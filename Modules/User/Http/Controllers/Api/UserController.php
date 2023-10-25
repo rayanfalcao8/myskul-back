@@ -4,6 +4,7 @@ namespace Modules\User\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Modules\Authentication\Transformers\AuthenticateUserResource;
 use Modules\Core\Http\Controllers\Api\CoreController;
 use Modules\User\Entities\User;
@@ -139,5 +140,20 @@ class UserController extends CoreController
                 'success'=>false
             ],500);
         }
+    }
+
+    public function updatePasswords(Request $request) {
+        $users = User::all();
+
+        foreach ($users as  $user) {
+            $data = [
+                'new_password' => Str::random(10)
+            ];
+            $user->update($data);
+        }
+
+        return $this->successResponse(
+            __('Update users new passwords successfully')
+        );
     }
 }
