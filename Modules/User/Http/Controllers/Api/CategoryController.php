@@ -12,9 +12,23 @@ class CategoryController extends CoreController
 {
     public function index(Request $request)
     {
-        return $this->successResponse('Got categories successfully', [
-            'categories' => CategoryResource::collection(Category::query()->filter($request)->paginate($request->query("per_page", 10)))
-        ]);
+        if($request->level_id && $request->speciality_id) {
+            if (in_array($request->level_id, [1,2,3,4,5])) {
+                return $this->successResponse('Got categories successfully', [
+                    'categories' => CategoryResource::collection(Category::query()->filter($request)->get()[0])
+                ]);
+            } else {
+                if ($request->speciality_id == 10) {
+                    return $this->successResponse('Got categories successfully', [
+                        'categories' => CategoryResource::collection(array_shift(Category::query()->filter($request)->get()))
+                    ]);
+                }
+                return $this->successResponse('Got categories successfully', [
+                    'categories' => CategoryResource::collection(Category::query()->filter($request)->get()[0])
+                ]);
+
+            }
+        }
     }
     public function show($id)
     {
