@@ -12,23 +12,28 @@ class CategoryController extends CoreController
 {
     public function index(Request $request)
     {
-        if($request->level_id && $request->speciality_id) {
-            if (in_array($request->level_id, [1,2,3,4,5])) {
+        $level_id = $request->user()->level_id;
+        $speciality_id = $request->user()->speciality_id;
+        if($level_id && $speciality_id) {
+            if ($level_id >= 1 && $level_id <= 5) {
                 return $this->successResponse('Got categories successfully', [
-                    'categories' => CategoryResource::collection(Category::query()->filter($request)->get()[0])
+                    'categories' => CategoryResource::collection(Category::query()->filter($request)->limit(1)->get())
                 ]);
             } else {
-                if ($request->speciality_id == 10) {
+                if ($speciality_id == 10) {
                     return $this->successResponse('Got categories successfully', [
-                        'categories' => CategoryResource::collection(array_shift(Category::query()->filter($request)->get()))
+                        'categories' => CategoryResource::collection(Category::query()->filter($request)->get()->forget(0))
                     ]);
                 }
                 return $this->successResponse('Got categories successfully', [
-                    'categories' => CategoryResource::collection(Category::query()->filter($request)->get()[0])
+                    'categories' => CategoryResource::collection(Category::query()->filter($request)->limit(1)->get())
                 ]);
 
             }
         }
+        return $this->successResponse('Got categories successfully', [
+            'categories' => CategoryResource::collection(Category::query()->filter($request)->get())
+        ]);
     }
     public function show($id)
     {
